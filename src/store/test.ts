@@ -13,10 +13,10 @@ const useStore = create<Store>()(
       (set) => ({
         count: 1,
         inc() {
-          set((state) => ({ count: state.count + 1 }));
+          set((state) => ({ count: state.count + 1 }), false, "increment");
         },
         dec() {
-          set((state) => ({ count: state.count - 1 }));
+          set((state) => ({ count: state.count - 1 }), false, "decrement");
         },
       }),
       {
