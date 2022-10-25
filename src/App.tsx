@@ -1,21 +1,28 @@
-import Button from "@mui/material/Button";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import useStore from "./store/test";
+import FloatingButton from "./components/FloatingButton";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import useOpen from "./store/widget-open";
 
 const App = () => {
-  const { count, inc, dec } = useStore((state) => state);
-
-  // const [count, setCount] = useState(0);
-  // const inc = useTest((state: any) => state.inc);
-  // const dec = useTest((state: any) => state.dec);
-  // const count = useStore((state: any) => state.count);
-
+  const { open, setOpen } = useOpen((state) => state);
+  const handleChange = () => {
+    setOpen();
+    window.parent.postMessage(open ? "hide" : "show", "*");
+  };
   return (
-    <div className="App">
-      <p style={{ color: "black" }}>{count}</p>
-      <Button onClick={() => inc()}>Increment</Button>
-      <Button onClick={() => dec()}>Decrement</Button>
-    </div>
+    <BrowserRouter>
+      {open && (
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="login" element={<Login />} />
+        </Routes>
+      )}
+      {!open && (
+        <FloatingButton open={() => setOpen()} onClick={handleChange} />
+      )}
+    </BrowserRouter>
   );
 };
 

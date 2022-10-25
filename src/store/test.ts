@@ -26,6 +26,4 @@ const useStore = create<Store>()(
   )
 );
 
-// const useStore = create(devtools(persist(store, { name: "tested" })));
-
 export default useStore;
