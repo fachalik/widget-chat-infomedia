@@ -1,9 +1,11 @@
 import Box from "@mui/material/Box";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 import useOpen from "../store/widget-open";
 
 const Home = () => {
+  const navigate = useNavigate();
   const { open, setOpen } = useOpen((state) => state);
   React.useEffect(() => {
     window.addEventListener("message", (e) => console.log(e));
@@ -30,6 +32,7 @@ const Home = () => {
       }}
       // onClick={}
     >
+      <button onClick={() => navigate("login")}>go to login</button>
       <button onClick={() => setOpen()}>close</button>
       {/* <div onClick={() => setOpen()}>close</div> */}
     </Box>

@@ -7,9 +7,9 @@ import useOpen from "./store/widget-open";
 
 const App = () => {
   const { open, setOpen } = useOpen((state) => state);
-  const handleChange = () => {
-    setOpen();
-    window.parent.postMessage(open ? "hide" : "show", "*");
+  const handleChange = async () => {
+    await setOpen();
+    await window.parent.postMessage(open ? "hide" : "show", "*");
   };
   return (
     <BrowserRouter>
