@@ -1,11 +1,12 @@
-import "./App.css";
-
-import { useState } from "react";
-
 import reactLogo from "./assets/react.svg";
+import useStore from "./store/test";
 
-function App() {
-  const [count, setCount] = useState(0);
+const App = () => {
+  const { count, inc, dec } = useStore((state) => state);
+  // const [count, setCount] = useState(0);
+  // const inc = useTest((state: any) => state.inc);
+  // const dec = useTest((state: any) => state.dec);
+  // const count = useStore((state: any) => state.count);
 
   return (
     <div className="App">
@@ -19,9 +20,9 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
+        <p>{count}</p>
+        <button onClick={() => inc()}>Increment</button>
+        <button onClick={() => dec()}>Decrement</button>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
@@ -31,6 +32,9 @@ function App() {
       </p>
     </div>
   );
-}
+};
 
 export default App;
+function useTest(arg0: (state: any) => any) {
+  throw new Error("Function not implemented.");
+}
