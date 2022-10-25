@@ -1,8 +1,13 @@
 import ForumIcon from "@mui/icons-material/Forum";
 import { Box } from "@mui/material";
-import React from "react";
+import React, { FC } from "react";
 
-export default function FloatingButton({ open, onClick }) {
+interface IProps {
+  open: boolean;
+  onClick: () => void;
+}
+
+const FloatingButton: FC<IProps> = ({ open, onClick }) => {
   return (
     <Box
       bgcolor="#12344D"
@@ -23,9 +28,10 @@ export default function FloatingButton({ open, onClick }) {
         transform: `scale(${open ? 1 : 0})`,
         transition: "transform 200ms ease-in-out",
       }}
-      onClick={onClick}
+      onClick={() => onClick()}
     >
       <ForumIcon sx={{ fontSize: "35px" }} />
     </Box>
   );
-}
+};
+export default FloatingButton;

@@ -19,9 +19,7 @@ const App = () => {
           <Route path="login" element={<Login />} />
         </Routes>
       )}
-      {!open && (
-        <FloatingButton open={() => setOpen()} onClick={handleChange} />
-      )}
+      {!open && <FloatingButton open={open} onClick={handleChange} />}
     </BrowserRouter>
   );
 };
