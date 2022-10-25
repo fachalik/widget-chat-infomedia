@@ -1,10 +1,22 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App'
-import './index.css'
+import "./index.css";
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+import { ThemeProvider } from "@mui/material/styles";
+import React from "react";
+import ReactDOM from "react-dom/client";
+
+import App from "./App";
+import GlobalStyle from "./styles/GlobalStyle";
+import Theme from "./styles/theme";
+
+ReactDOM.createRoot(
+  document.getElementById("live-body-chat") as HTMLElement
+).render(
   <React.StrictMode>
-    <App />
+    <>
+      <GlobalStyle />
+      <ThemeProvider theme={Theme}>
+        <App />
+      </ThemeProvider>
+    </>
   </React.StrictMode>
-)
+);
