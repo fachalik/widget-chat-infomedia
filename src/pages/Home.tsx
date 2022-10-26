@@ -1,7 +1,7 @@
-import Box from "@mui/material/Box";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
+// import Wrapper from "../components/Wrapper";
 import useOpen from "../store/widget-open";
 
 const Home = () => {
@@ -16,26 +16,12 @@ const Home = () => {
     window.parent.postMessage("hide", "*");
   };
   return (
-    <Box
-      position="absolute"
-      top="0"
-      right="0"
-      height="100%"
-      width="100%"
-      bgcolor="red"
-      sx={{
-        transform: `translateX(${open ? 0 : 100}%) translateY(${
-          open ? 0 : 100
-        }%) translateZ(0px)`,
-        opacity: open ? "100%" : "0%",
-        transition: "all 200ms ease-in-out",
-      }}
-      // onClick={}
-    >
+    // <Wrapper open={open}>
+    <>
       <button onClick={() => navigate("login")}>go to login</button>
       <button onClick={() => setOpen()}>close</button>
-      {/* <div onClick={() => setOpen()}>close</div> */}
-    </Box>
+    </>
+    // </Wrapper>
   );
 };
 
