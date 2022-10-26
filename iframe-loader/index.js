@@ -109,8 +109,16 @@ function widgetApi() {
       },
 
       show: () => {
-        widgetStyle.width = "350px";
-        widgetStyle.height = "500px";
+        if (
+          navigator.userAgent.match(/Android/i) ||
+          navigator.userAgent.match(/iPhone/i)
+        ) {
+          widgetStyle.width = screen.width;
+          widgetStyle.height = screen.height;
+        }else{
+          widgetStyle.width = "350px";
+          widgetStyle.height = "800px";
+        }
       },
 
       hide: () => {
@@ -134,8 +142,8 @@ function widgetApi() {
       });
 
       window.addEventListener("message", (evt) => {
-        console.log("MainColor", MainColor);
-        console.log("loader", evt);
+        // console.log("MainColor", MainColor);
+        // console.log("loader", evt);
 
         if (evt.origin !== "http://localhost:5173") {
           return;
