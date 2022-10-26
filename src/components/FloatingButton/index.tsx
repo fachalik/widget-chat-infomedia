@@ -27,6 +27,7 @@ const FloatingButton: FC<IProps> = ({ open, onClick }) => {
         // transform: `translateX(0px) translateY(${positionPopUp}%) translateZ(0px)`,
         transform: `scale(${!open ? 1 : 0})`,
         opacity: !open ? "100%" : "0%",
+        zIndex: 3,
         transition: "all 200ms ease-in-out",
       }}
       onClick={() => onClick()}

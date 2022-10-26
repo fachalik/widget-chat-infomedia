@@ -30,6 +30,9 @@ const App = () => {
     if (open) handleLoader();
   }, [open, isLoad]);
 
+  const handleToggle = () => {
+    setIsToggle(false);
+  };
   return (
     <BrowserRouter>
       <Wrapper open={open}>
@@ -43,8 +46,8 @@ const App = () => {
           {open && isLoad && <p>Load</p>}
         </>
       </Wrapper>
-      {isToggle && (
-        <FloatingDialog open={isToggle} onClick={() => setIsToggle(false)} />
+      {isToggle && !open && (
+        <FloatingDialog open={isToggle} onClick={handleToggle} />
       )}
       {!open && <FloatingButton open={open} onClick={handleChange} />}
     </BrowserRouter>

@@ -23,6 +23,7 @@ const index: FC<IProps> = ({ open, children }) => {
         opacity: open ? "100%" : "0%",
         transition: "all 200ms ease-in-out",
         borderRadius: "15px",
+        zIndex: 2,
       }}
     >
       {children}

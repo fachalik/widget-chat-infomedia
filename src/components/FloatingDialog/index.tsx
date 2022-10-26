@@ -1,3 +1,4 @@
+import { css } from "@emotion/css";
 import CloseIcon from "@mui/icons-material/Close";
 import { Box, IconButton } from "@mui/material";
 import React, { FC } from "react";
@@ -37,20 +38,32 @@ const FloatingDialog: FC<IProps> = ({ open, onClick }) => {
         <br />
         Bagaimana bot dapat membantu kamu?
       </Box>
-      <IconButton
-        sx={{
-          position: "absolute",
-          right: "2px",
-          bottom: "170px",
-          backgroundColor: "black",
-          color: "white",
-          transform: `scale(${open ? 1 : 0})`,
-          opacity: open ? "100%" : "0%",
-        }}
-        onClick={onClick}
+
+      <div
+        className={css`
+          cursor:pointer;
+          position: absolute;
+          right: 2px;
+          bottom: 170px;
+          background-color: black;
+          color: white;
+          display:flex;
+          justify-content:center;
+          align-items:center;
+          border-radius:90px;
+          width:30px;
+          height:30px;
+          transform: scale(${open ? 1 : 0});
+          opacity: open ? "100%" : "0%";
+          transition: 0.3s;
+          &:hover {
+            background-color: grey;
+          }
+          `}
+        onClick={() => onClick()}
       >
         <CloseIcon fontSize="small" />
-      </IconButton>
+      </div>
     </>
   );
 };

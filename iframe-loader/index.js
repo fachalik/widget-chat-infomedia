@@ -73,7 +73,8 @@ function widgetApi() {
     const widgetStyle = widget.style;
     widgetStyle.display = "none";
     widgetStyle.boxSizing = "border-box";
-    widgetStyle.width = "350px";
+    
+    widgetStyle.width = "396px";
     widgetStyle.height = "250px";
     // widgetStyle.width = "350px";
     // widgetStyle.height = "500px";
@@ -116,13 +117,13 @@ function widgetApi() {
           widgetStyle.width = screen.width;
           widgetStyle.height = screen.height;
         }else{
-          widgetStyle.width = "350px";
-          widgetStyle.height = "800px";
+          widgetStyle.width = "396px";
+          widgetStyle.height = "851px";
         }
       },
 
       hide: () => {
-        widgetStyle.width = "250px";
+        widgetStyle.width = "396px";
         widgetStyle.height = "80px";
         // widget.style.display = "none";
       },
