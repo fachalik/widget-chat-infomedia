@@ -6,3 +6,5 @@ build
 .husky
 .vscode
 iframe-loader
+tsconfig.json
+tsconfig.node.json
