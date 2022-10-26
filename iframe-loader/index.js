@@ -73,8 +73,8 @@ function widgetApi() {
     const widgetStyle = widget.style;
     widgetStyle.display = "none";
     widgetStyle.boxSizing = "border-box";
-    widgetStyle.width = "80px";
-    widgetStyle.height = "80px";
+    widgetStyle.width = "350px";
+    widgetStyle.height = "250px";
     // widgetStyle.width = "350px";
     // widgetStyle.height = "500px";
     widgetStyle.position = "absolute";
@@ -122,7 +122,7 @@ function widgetApi() {
       },
 
       hide: () => {
-        widgetStyle.width = "80px";
+        widgetStyle.width = "250px";
         widgetStyle.height = "80px";
         // widget.style.display = "none";
       },

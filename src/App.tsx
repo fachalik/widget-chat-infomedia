@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import FloatingButton from "./components/FloatingButton";
+import FloatingDialog from "./components/FloatingDialog";
 import Wrapper from "./components/Wrapper";
 import { timeout } from "./lib/utilitys";
 import Home from "./pages/Home";
@@ -12,6 +13,7 @@ import useOpen from "./store/widget-open";
 const App = () => {
   const { open, setOpen } = useOpen((state) => state);
   const { isLoad, setIsLoad } = useLoad((state) => state);
+  const [isToggle, setIsToggle] = React.useState<boolean>(true);
 
   const handleChange = async () => {
     await setOpen();
@@ -41,7 +43,9 @@ const App = () => {
           {open && isLoad && <p>Load</p>}
         </>
       </Wrapper>
-
+      {isToggle && (
+        <FloatingDialog open={isToggle} onClick={() => setIsToggle(false)} />
+      )}
       {!open && <FloatingButton open={open} onClick={handleChange} />}
     </BrowserRouter>
   );
