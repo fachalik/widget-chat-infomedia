@@ -6,19 +6,35 @@ import FloatingDialog from "./components/FloatingDialog";
 import Wrapper from "./components/Wrapper";
 import { timeout } from "./lib/utilitys";
 import Home from "./pages/Home";
+import Loading from "./pages/Loading";
 import Login from "./pages/Login";
-import useLoad from "./store/widget-loader";
-import useOpen from "./store/widget-open";
+import OnBoard from "./pages/OnBoard";
+import useWidgetStore from "./store/widget-store";
 
 const App = () => {
-  const { open, setOpen } = useOpen((state) => state);
-  const { isLoad, setIsLoad } = useLoad((state) => state);
+  const { open, setOpen, isLoad, setIsLoad, setColor } = useWidgetStore(
+    (state) => state
+  );
+
   const [isToggle, setIsToggle] = React.useState<boolean>(true);
 
   const handleChange = async () => {
     await setOpen();
     await window.parent.postMessage(open ? "hide" : "show", "*");
   };
+
+  React.useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const primary_color = searchParams.get("primaryColor");
+    const secondary_color = searchParams.get("secondaryColor");
+    const color = {
+      primary_color,
+      secondary_color,
+    };
+    if (primary_color !== null && secondary_color !== null) {
+      setColor(color);
+    }
+  }, []);
 
   React.useEffect(() => {
     const handleLoader = async () => {
@@ -28,22 +44,24 @@ const App = () => {
       }
     };
     if (open) handleLoader();
-  }, [open, isLoad]);
+  }, [open, isLoad, setIsLoad]);
 
   const handleToggle = () => {
     setIsToggle(false);
   };
+
   return (
     <BrowserRouter>
       <Wrapper open={open}>
         <>
           {open && !isLoad && (
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={<OnBoard />} />
+              <Route path="home" element={<Home />} />
               <Route path="login" element={<Login />} />
             </Routes>
           )}
-          {open && isLoad && <p>Load</p>}
+          {open && isLoad && <Loading />}
         </>
       </Wrapper>
       {isToggle && !open && (

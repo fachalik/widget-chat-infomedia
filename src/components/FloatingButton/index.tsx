@@ -2,15 +2,18 @@ import ForumIcon from "@mui/icons-material/Forum";
 import { Box } from "@mui/material";
 import React, { FC } from "react";
 
+import useWidgetStore from "../../store/widget-store";
+
 interface IProps {
   open: boolean;
   onClick: () => void;
 }
 
 const FloatingButton: FC<IProps> = ({ open, onClick }) => {
+  const widgetStore = useWidgetStore((state) => state.color);
   return (
     <Box
-      bgcolor="#12344D"
+      bgcolor={`#${widgetStore.primary_color}`}
       borderRadius="34px 8px 34px 34px"
       boxShadow="0 5px 4px 0 rgb(0 0 0 / 26%)"
       width="65px"
@@ -18,7 +21,7 @@ const FloatingButton: FC<IProps> = ({ open, onClick }) => {
       display="flex"
       alignItems="center"
       justifyContent="center"
-      color="#fff"
+      color="white"
       position="absolute"
       bottom="15px"
       right="15px"

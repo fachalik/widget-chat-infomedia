@@ -14,16 +14,18 @@ const index: FC<IProps> = ({ open, children }) => {
       left="50%"
       height="90%"
       width="90%"
-      bgcolor="white"
+      borderRadius={"15px"}
       sx={{
+        MozBorderRadius: "10px",
+        webkitBorderRadius: "10px",
         transform: "translate(-50%, -50%)",
-        boxShadow: "-1px 0px 11px -2px rgba(0,0,0,0.81)",
-        WebkitBoxShadow: "-1px 0px 11px -2px rgba(0,0,0,0.81)",
-        MozBoxShadow: "-1px 0px 11px -2px rgba(0,0,0,0.81)",
         opacity: open ? "100%" : "0%",
         transition: "all 200ms ease-in-out",
-        borderRadius: "15px",
         zIndex: 2,
+        boxShadow: "1px 2px 9px 1px rgba(0,0,0,0.75)",
+        webkitBoxShadow: "1px 2px 9px 1px rgba(0,0,0,0.75)",
+        mozBoxShadow: "1px 2px 9px 1px rgba(0,0,0,0.75)",
+        overflow: "hidden",
       }}
     >
       {children}

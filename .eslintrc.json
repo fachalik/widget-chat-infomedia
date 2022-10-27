@@ -14,8 +14,15 @@
     },
     "import/resolver": {
       "node": {
-        "paths": ["src"],
-        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+        "paths": [
+          "src"
+        ],
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".ts",
+          ".tsx"
+        ]
       }
     }
   },
@@ -25,11 +32,17 @@
     "node": true
   },
   "extends": [
-    "react-app"
-    // "plugin:prettier/recommended" // Make sure this is always the last element in the array.
+    "react-app",
+    "plugin:react-hooks/recommended",
+    "plugin:prettier/recommended" // Make sure this is always the last element in the array.
   ],
-  "plugins": ["simple-import-sort", "prettier"],
-  "ignorePatterns": ["**/*.js"],
+  "plugins": [
+    "simple-import-sort",
+    "prettier"
+  ],
+  "ignorePatterns": [
+    "**/*.js"
+  ],
   "rules": {
     "no-unused-vars": [
       1,
@@ -54,9 +67,17 @@
     "jsx-a11y/anchor-is-valid": [
       "error",
       {
-        "components": ["Link"],
-        "specialLink": ["hrefLeft", "hrefRight"],
-        "aspects": ["invalidHref", "preferButton"]
+        "components": [
+          "Link"
+        ],
+        "specialLink": [
+          "hrefLeft",
+          "hrefRight"
+        ],
+        "aspects": [
+          "invalidHref",
+          "preferButton"
+        ]
       }
     ]
   }

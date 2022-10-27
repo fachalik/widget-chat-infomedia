@@ -3,11 +3,11 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 // import Wrapper from "../components/Wrapper";
-import useOpen from "../store/widget-open";
+import useWidgetStore from "../store/widget-store";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { open, setOpen } = useOpen((state) => state);
+  const { open, setOpen } = useWidgetStore((state) => state);
   React.useEffect(() => {
     window.addEventListener("message", (e) => console.log(e));
   }, []);

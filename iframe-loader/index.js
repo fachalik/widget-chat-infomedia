@@ -74,13 +74,12 @@ function widgetApi() {
     widgetStyle.display = "none";
     widgetStyle.boxSizing = "border-box";
     
-    widgetStyle.width = "396px";
+    widgetStyle.width = "400px";
     widgetStyle.height = "250px";
-    // widgetStyle.width = "350px";
-    // widgetStyle.height = "500px";
-    widgetStyle.position = "absolute";
+    widgetStyle.position = "fixed";
     widgetStyle.bottom = "40px";
     widgetStyle.right = "40px";
+    widgetStyle.borderRadius = "15px";
 
     const iframe = document.createElement("iframe");
 
@@ -114,17 +113,24 @@ function widgetApi() {
           navigator.userAgent.match(/Android/i) ||
           navigator.userAgent.match(/iPhone/i)
         ) {
-          widgetStyle.width = screen.width;
-          widgetStyle.height = screen.height;
+          widgetStyle.width = "100%";
+          widgetStyle.height = "100%";
+          widgetStyle.bottom = "0px";
+          widgetStyle.right = "0px";
         }else{
-          widgetStyle.width = "396px";
-          widgetStyle.height = "851px";
+          widgetStyle.width = "400px";
+          widgetStyle.height = "90vh";
         }
+        // widgetStyle.boxShadow = "-1px 0px 11px -2px rgba(0,0,0,0.81)";
+        // widgetStyle.borderRadius = "15px";
+ 
       },
 
       hide: () => {
-        widgetStyle.width = "396px";
+        widgetStyle.width = "400px";
         widgetStyle.height = "80px";
+        widgetStyle.borderRadius = "15px";
+        // widgetStyle.boxShadow = "";
         // widget.style.display = "none";
       },
 
@@ -136,6 +142,8 @@ function widgetApi() {
       onHide: () => {},
     };
 
+    const widgetAddress = 'http://192.168.10.183:5173'
+
     iframe.addEventListener("load", () => {
       window.addEventListener("getWidgetApi", () => {
         const event = new CustomEvent("widgetApi", { detail: api });
@@ -146,12 +154,13 @@ function widgetApi() {
         // console.log("MainColor", MainColor);
         // console.log("loader", evt);
 
-        if (evt.origin !== "http://localhost:5173") {
+        if (evt.origin !== widgetAddress) {
           return;
         }
         if (evt.data === "hide") {
           api.hide();
           api.onHide();
+          console.log('hit')
         }
         if (evt.data === "show") {
           api.show();
@@ -159,12 +168,15 @@ function widgetApi() {
         }
       });
 
-      // iframe.contentWindow.postMessage({ greeting }, "http://localhost:5173/");
+      iframe.contentWindow.postMessage({ greeting:'test' }, widgetAddress);
       widgetStyle.display = "block";
     });
 
     const license = script.getAttribute("data-license");
-    const widgetUrl = `http://localhost:5173/?license=${license}`;
+    const PRIMARY_COLOR = "EB1C24"
+    const SECONDARY_COLOR="929497"
+    // const widgetUrl = `${widgetAddress}/?license=${license}&primaryColor=${PRIMARY_COLOR}&secondarColor=${SECONDARY_COLOR}`;
+ const widgetUrl = `${widgetAddress}/?license=${license}&primaryColor=${PRIMARY_COLOR}&secondaryColor=${SECONDARY_COLOR}`;
 
     iframe.src = widgetUrl;
 

@@ -3,12 +3,15 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Box, IconButton } from "@mui/material";
 import React, { FC } from "react";
 
+import useWidgetStore from "../../store/widget-store";
+
 interface IProps {
   open: boolean;
   onClick: () => void;
 }
 
 const FloatingDialog: FC<IProps> = ({ open, onClick }) => {
+  const widgetStore = useWidgetStore((state) => state.color);
   return (
     <>
       <Box
@@ -45,7 +48,7 @@ const FloatingDialog: FC<IProps> = ({ open, onClick }) => {
           position: absolute;
           right: 2px;
           bottom: 170px;
-          background-color: black;
+          background-color: #${widgetStore.primary_color};
           color: white;
           display:flex;
           justify-content:center;
