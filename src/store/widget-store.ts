@@ -13,21 +13,25 @@ type Store = {
   setColor: (color: any) => void;
   setToken: (token: string) => void;
   setLogo: (logo: string) => void;
+  reset: () => void;
+};
+
+const initialState = {
+  token: null,
+  logo: null,
+  isLoad: true,
+  open: false,
+  color: {
+    primary_color: "EB1C24",
+    secondary_color: "929497",
+  },
 };
 
 const useWidgetStore = create<Store>()(
   devtools(
     persist(
       (set) => ({
-        token: null,
-        logo: null,
-        isLoad: true,
-        open: false,
-        color: {
-          primary_color: "EB1C24",
-          secondary_color: "929497",
-        },
-
+        ...initialState,
         // setLoader for first time
         setIsLoad() {
           set((state) => ({ isLoad: !state.isLoad }), false, "widget-isLoad");
@@ -51,6 +55,11 @@ const useWidgetStore = create<Store>()(
         // setLogo passing from params
         setLogo(logo: string) {
           set(() => ({ logo }), false, "widget-logo");
+        },
+
+        // clear State
+        reset() {
+          set(() => initialState);
         },
       }),
       {

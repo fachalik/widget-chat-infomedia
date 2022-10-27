@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import FloatingButton from "./components/FloatingButton";
 import FloatingDialog from "./components/FloatingDialog";
@@ -9,10 +9,11 @@ import Home from "./pages/Home";
 import Loading from "./pages/Loading";
 import Login from "./pages/Login";
 import OnBoard from "./pages/OnBoard";
+import { Logout } from "./routes/Logout";
 import useWidgetStore from "./store/widget-store";
 
 const App = () => {
-  const { open, setOpen, isLoad, setIsLoad, setColor, setLogo } =
+  const { open, isLoad, token, setOpen, setIsLoad, setColor, setLogo } =
     useWidgetStore((state) => state);
 
   const [isToggle, setIsToggle] = React.useState<boolean>(true);
@@ -57,9 +58,19 @@ const App = () => {
         <>
           {open && !isLoad && (
             <Routes>
-              <Route path="/" element={<OnBoard />} />
-              <Route path="home" element={<Home />} />
-              <Route path="login" element={<Login />} />
+              <Route path="logout" element={<Logout />} />
+              {token === null ? (
+                <>
+                  <Route path="auth" element={<OnBoard />} />
+                  <Route path="*" element={<Navigate to="/auth" />} />
+                </>
+              ) : (
+                <>
+                  <Route path="/" element={<Home />} />
+                  <Route path="login" element={<Login />} />
+                  <Route path="*" element={<Navigate to="/" />} />
+                </>
+              )}
             </Routes>
           )}
           {open && isLoad && <Loading />}
