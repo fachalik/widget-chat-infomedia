@@ -1,6 +1,6 @@
 import { css } from "@emotion/css";
 import CloseIcon from "@mui/icons-material/Close";
-import { Box, IconButton } from "@mui/material";
+import { Box } from "@mui/material";
 import React, { FC } from "react";
 
 import useWidgetStore from "../../store/widget-store";

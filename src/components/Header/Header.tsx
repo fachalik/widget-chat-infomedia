@@ -1,7 +1,9 @@
 import { css } from "@emotion/css";
 import CloseIcon from "@mui/icons-material/Close";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import React, { FC } from "react";
+
+import useWidgetStore from "../..//store/widget-store";
 
 interface IProps {
   onClick: () => void;
@@ -10,16 +12,16 @@ interface IProps {
 }
 
 const Header: FC<IProps> = ({ onClick, back = false, close = false }) => {
+  const { logo, color } = useWidgetStore((state) => state);
   return (
     <Box
-      height={"60vh"}
+      height={"70px"}
       sx={{
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
         position: "relative",
-        backgroundColor: "#536BDE",
-        borderRadius: "15px",
+        backgroundColor: `#${color.primary_color}`,
         // zIndex: 2,
       }}
     >
@@ -47,7 +49,16 @@ const Header: FC<IProps> = ({ onClick, back = false, close = false }) => {
           </div>
         </Box>
       )}
-      <Typography color={"white"}>Logo here</Typography>
+      <img
+        src={`${logo}?w=164&h=164&fit=crop&auto=format`}
+        srcSet={`${logo}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+        alt={`${logo}asd`}
+        loading="lazy"
+        className={css`
+          height: 30px;
+          width: 30px;
+        `}
+      />
       {close && (
         <Box sx={{ position: "absolute", top: "20px", right: "20px" }}>
           <div

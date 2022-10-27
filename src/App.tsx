@@ -12,9 +12,8 @@ import OnBoard from "./pages/OnBoard";
 import useWidgetStore from "./store/widget-store";
 
 const App = () => {
-  const { open, setOpen, isLoad, setIsLoad, setColor } = useWidgetStore(
-    (state) => state
-  );
+  const { open, setOpen, isLoad, setIsLoad, setColor, setLogo } =
+    useWidgetStore((state) => state);
 
   const [isToggle, setIsToggle] = React.useState<boolean>(true);
 
@@ -27,10 +26,12 @@ const App = () => {
     const searchParams = new URLSearchParams(window.location.search);
     const primary_color = searchParams.get("primaryColor");
     const secondary_color = searchParams.get("secondaryColor");
+    const logo = searchParams.get("logo");
     const color = {
       primary_color,
       secondary_color,
     };
+    if (logo !== null) setLogo(logo);
     if (primary_color !== null && secondary_color !== null) {
       setColor(color);
     }

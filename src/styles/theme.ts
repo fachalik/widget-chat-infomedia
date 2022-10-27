@@ -12,7 +12,7 @@ const mainTheme = createTheme({
     },
   },
   typography: {
-    fontFamily: ["Sora", "sans-serif"].join(","),
+    fontFamily: "Inter",
   },
 });
 

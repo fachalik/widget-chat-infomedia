@@ -119,7 +119,7 @@ function widgetApi() {
           widgetStyle.right = "0px";
         }else{
           widgetStyle.width = "400px";
-          widgetStyle.height = "90vh";
+          widgetStyle.height = "851px";
         }
         // widgetStyle.boxShadow = "-1px 0px 11px -2px rgba(0,0,0,0.81)";
         // widgetStyle.borderRadius = "15px";
@@ -142,7 +142,7 @@ function widgetApi() {
       onHide: () => {},
     };
 
-    const widgetAddress = 'http://192.168.10.183:5173'
+    const widgetAddress = 'http://192.168.1.187:5173'
 
     iframe.addEventListener("load", () => {
       window.addEventListener("getWidgetApi", () => {
@@ -175,8 +175,9 @@ function widgetApi() {
     const license = script.getAttribute("data-license");
     const PRIMARY_COLOR = "EB1C24"
     const SECONDARY_COLOR="929497"
+    const logo = "https://www.infomedia.co.id/chat/assets/img/header_logo.png"
     // const widgetUrl = `${widgetAddress}/?license=${license}&primaryColor=${PRIMARY_COLOR}&secondarColor=${SECONDARY_COLOR}`;
- const widgetUrl = `${widgetAddress}/?license=${license}&primaryColor=${PRIMARY_COLOR}&secondaryColor=${SECONDARY_COLOR}`;
+ const widgetUrl = `${widgetAddress}/?license=${license}&primaryColor=${PRIMARY_COLOR}&secondaryColor=${SECONDARY_COLOR}&logo=${logo}`;
 
     iframe.src = widgetUrl;
 
