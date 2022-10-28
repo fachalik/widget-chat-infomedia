@@ -1,19 +1,8 @@
-import {
-  Alert,
-  Box,
-  Button,
-  Card,
-  CardContent,
-  Checkbox,
-  CircularProgress,
-  Container,
-  Snackbar,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, Container, Stack } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
+import ChatComponent from "../components/ChatComponent";
 import HeaderWithClose from "../components/Header/Header";
 import { timeout } from "../lib/utilitys";
 import useWidgetOpen from "../store/widget-open";
@@ -50,32 +39,19 @@ const Home = () => {
       disableGutters={true}
       maxWidth={false}
       sx={{
+        position: "relative",
         width: "100%",
-        height: "100%",
-        overflowX: "hidden",
-        overflowY: "hidden",
+        height: "100% ",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
       }}
     >
       <HeaderWithClose option close onClick={() => setOpen()} />
-      <Stack
-        spacing={2}
-        sx={{ height: "70vh" }}
-        justifyContent={"center"}
-        alignItems={"center"}
-      >
+      <Box sx={{ height: "82%", backgroundColor: "#e0e0e0", paddingX: "10px" }}>
         <p>data here</p>
-      </Stack>
-      <Snackbar
-        open={openSnackBar}
-        autoHideDuration={4000}
-        onClose={handleClose}
-        key={"bottom center"}
-      >
-        <Alert severity="error">
-          Maaf, kamu harus menyetujui ketentuan penggunaan dan kebijakan privasi
-          sebelum memulai percakapan.
-        </Alert>
-      </Snackbar>
+      </Box>
+      <ChatComponent />
     </Container>
   );
 };

@@ -12,8 +12,8 @@ const index: FC<IProps> = ({ open, children }) => {
       position="absolute"
       top="50%"
       left="50%"
-      height="90%"
-      width="90%"
+      height="95%"
+      width="95%"
       borderRadius={"15px"}
       sx={{
         MozBorderRadius: "10px",

@@ -77,8 +77,8 @@ function widgetApi() {
     widgetStyle.width = "400px";
     widgetStyle.height = "250px";
     widgetStyle.position = "fixed";
-    widgetStyle.bottom = "40px";
-    widgetStyle.right = "40px";
+    widgetStyle.bottom = "5px";
+    widgetStyle.right = "10px";
     widgetStyle.borderRadius = "15px";
 
     const iframe = document.createElement("iframe");
