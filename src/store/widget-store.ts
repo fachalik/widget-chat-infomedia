@@ -51,7 +51,13 @@ const useWidgetStore = create<Store>()(
 
         // clear State
         reset() {
-          set(() => initialState);
+          set((state) => ({
+            // not delete logo and color from persisted aka localstorage
+            token: null,
+            logo: state.logo,
+            isLoad: true,
+            color: state.color,
+          }));
         },
       }),
       {

@@ -5,14 +5,14 @@ import { devtools, persist } from "zustand/middleware";
 type Store = {
   chat: any[];
   addChat: (chat: any) => void;
-  resetChat: () => void;
+  reset: () => void;
 };
 
 const initialState = {
   chat: [],
 };
 
-const useWidgetStore = create<Store>()(
+const useWidgetChat = create<Store>()(
   devtools(
     persist(
       (set) => ({
@@ -28,7 +28,7 @@ const useWidgetStore = create<Store>()(
         },
 
         // clear State
-        resetChat() {
+        reset() {
           set(() => initialState);
         },
       }),
@@ -39,4 +39,4 @@ const useWidgetStore = create<Store>()(
   )
 );
 
-export default useWidgetStore;
+export default useWidgetChat;
