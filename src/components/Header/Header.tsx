@@ -1,7 +1,9 @@
 import { css } from "@emotion/css";
 import CloseIcon from "@mui/icons-material/Close";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Box, Menu, MenuItem } from "@mui/material";
+import RestartAltIcon from "@mui/icons-material/RestartAlt";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
+import { Box, ListItemIcon, ListItemText, Menu, MenuItem } from "@mui/material";
 import React, { FC } from "react";
 
 import useWidgetChat from "../../store/widget-chat";
@@ -134,6 +136,10 @@ const Header: FC<IProps> = ({
               }
             `}
             onClick={(e: any) => handleClickOptions(e)}
+            id="basic-button"
+            aria-controls={open ? "basic-menu" : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? "true" : undefined}
           >
             <MenuIcon fontSize="small" />
           </div>
@@ -147,9 +153,35 @@ const Header: FC<IProps> = ({
             }}
           >
             <MenuItem onClick={handleResetWidgetChat}>
-              Hapus Riwayat Percakapan
+              <ListItemIcon>
+                <RestartAltIcon fontSize="small" />
+              </ListItemIcon>
+              <ListItemText
+                sx={{
+                  display: "flex",
+                  justifyContent: "start",
+                  alignItems: "center",
+                }}
+              >
+                <span style={{ fontSize: "0.8rem" }}>
+                  Hapus Riwayat Percakapan
+                </span>
+              </ListItemText>
             </MenuItem>
-            <MenuItem onClick={handleCloseOptions}>Review chatbot</MenuItem>
+            <MenuItem onClick={handleCloseOptions}>
+              <ListItemIcon>
+                <StarBorderIcon fontSize="small" />
+              </ListItemIcon>
+              <ListItemText
+                sx={{
+                  display: "flex",
+                  justifyContent: "start",
+                  alignItems: "center",
+                }}
+              >
+                <span style={{ fontSize: "0.8rem" }}>Review chatbot</span>
+              </ListItemText>
+            </MenuItem>
           </Menu>
         </Box>
       )}
