@@ -119,7 +119,7 @@ function widgetApi() {
           widgetStyle.right = "0px";
         }else{
           widgetStyle.width = "400px";
-          widgetStyle.height = "851px";
+          widgetStyle.height = "calc(100% - 100px)"; 
         }
         // widgetStyle.boxShadow = "-1px 0px 11px -2px rgba(0,0,0,0.81)";
         // widgetStyle.borderRadius = "15px";
