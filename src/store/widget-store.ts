@@ -6,10 +6,8 @@ type Store = {
   token: string | null;
   logo: string | null;
   isLoad: boolean;
-  open: boolean;
   color: any;
   setIsLoad: () => void;
-  setOpen: () => void;
   setColor: (color: any) => void;
   setToken: (token: string) => void;
   setLogo: (logo: string) => void;
@@ -20,7 +18,6 @@ const initialState = {
   token: null,
   logo: null,
   isLoad: true,
-  open: false,
   color: {
     primary_color: "EB1C24",
     secondary_color: "929497",
@@ -35,11 +32,6 @@ const useWidgetStore = create<Store>()(
         // setLoader for first time
         setIsLoad() {
           set((state) => ({ isLoad: !state.isLoad }), false, "widget-isLoad");
-        },
-
-        // setOpen chat widget
-        setOpen() {
-          set((state) => ({ open: !state.open }), false, "widget-open");
         },
 
         // setColor passing from params

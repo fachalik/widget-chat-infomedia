@@ -10,11 +10,14 @@ import Loading from "./pages/Loading";
 import Login from "./pages/Login";
 import OnBoard from "./pages/OnBoard";
 import { Logout } from "./routes/Logout";
+import useWidgetOpen from "./store/widget-open";
 import useWidgetStore from "./store/widget-store";
 
 const App = () => {
-  const { open, isLoad, token, setOpen, setIsLoad, setColor, setLogo } =
-    useWidgetStore((state) => state);
+  const { isLoad, token, setIsLoad, setColor, setLogo } = useWidgetStore(
+    (state) => state
+  );
+  const { open, setOpen } = useWidgetOpen((state) => state);
 
   const [isToggle, setIsToggle] = React.useState<boolean>(true);
 

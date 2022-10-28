@@ -15,10 +15,12 @@ import React from "react";
 
 import HeaderWithClose from "../components/Header/Header";
 import { timeout } from "../lib/utilitys";
+import useWidgetOpen from "../store/widget-open";
 import useWidgetStore from "../store/widget-store";
 
 const OnBoard = () => {
-  const { setOpen, setToken } = useWidgetStore((state) => state);
+  const { setToken } = useWidgetStore((state) => state);
+  const { setOpen } = useWidgetOpen((state) => state);
   const [acc, setAcc] = React.useState<boolean>(false);
   const [openSnackBar, setOpenSnackBar] = React.useState<boolean>(false);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
