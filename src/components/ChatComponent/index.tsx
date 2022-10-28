@@ -14,7 +14,6 @@ const ChatComponent = () => {
         alignItems={"center"}
         sx={{ paddingX: "20px", paddingY: "3px", height: "100%" }}
       >
-        {/* <p>ads</p> */}
         <div
           className={css`
             cursor: pointer;
@@ -33,7 +32,6 @@ const ChatComponent = () => {
         >
           <AttachFileIcon fontSize="small" />
         </div>
-
         <Input multiline maxRows={5} sx={{ width: "90%" }} />
         <div
           className={css`
