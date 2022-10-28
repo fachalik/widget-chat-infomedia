@@ -48,7 +48,7 @@ const Home = () => {
       }}
     >
       <HeaderWithClose option close onClick={() => setOpen()} />
-      <Box sx={{ height: "82%", backgroundColor: "#e0e0e0", paddingX: "10px" }}>
+      <Box sx={{ height: "81%", backgroundColor: "#e0e0e0", paddingX: "10px" }}>
         <p>data here</p>
       </Box>
       <ChatComponent />

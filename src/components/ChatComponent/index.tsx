@@ -1,7 +1,7 @@
 import { css } from "@emotion/css";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import SendIcon from "@mui/icons-material/Send";
-import { Box, Button, Input, Stack } from "@mui/material";
+import { Box, Input, Stack } from "@mui/material";
 import React from "react";
 
 const ChatComponent = () => {
@@ -12,7 +12,7 @@ const ChatComponent = () => {
         justifyContent={"space-between"}
         spacing={2}
         alignItems={"center"}
-        sx={{ paddingX: "20px", height: "100%" }}
+        sx={{ paddingX: "20px", paddingY: "3px", height: "100%" }}
       >
         {/* <p>ads</p> */}
         <div
@@ -34,7 +34,7 @@ const ChatComponent = () => {
           <AttachFileIcon fontSize="small" />
         </div>
 
-        <Input sx={{ width: "90%" }} />
+        <Input multiline maxRows={5} sx={{ width: "90%" }} />
         <div
           className={css`
             cursor: pointer;
