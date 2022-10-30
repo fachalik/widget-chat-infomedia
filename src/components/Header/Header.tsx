@@ -5,23 +5,17 @@ import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import {
   Box,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
   ListItemIcon,
   ListItemText,
   Menu,
   MenuItem,
-  Slide,
+  Tooltip,
 } from "@mui/material";
-import { TransitionProps } from "@mui/material/transitions";
 import React, { FC } from "react";
 
 import useWidgetChat from "../../store/widget-chat";
 import useWidgetStore from "../../store/widget-store";
+import DialogComponent from "../DialogComponent";
 
 interface IProps {
   onClick: () => void;
@@ -72,15 +66,6 @@ const Header: FC<IProps> = ({
     await resetWidgetStore();
   };
 
-  const Transition = React.forwardRef(function Transition(
-    props: TransitionProps & {
-      children: React.ReactElement<any, any>;
-    },
-    ref: React.Ref<unknown>
-  ) {
-    return <Slide direction="up" ref={ref} {...props} />;
-  });
-
   return (
     <Box
       height={"70px"}
@@ -90,31 +75,32 @@ const Header: FC<IProps> = ({
         alignItems: "center",
         position: "relative",
         backgroundColor: `#${color.primary_color}`,
-        // zIndex: 2,
       }}
     >
       {back && (
         <Box sx={{ position: "absolute", left: "20px" }}>
-          <div
-            className={css`
-              cursor: pointer;
-              background-color: black;
-              color: white;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              border-radius: 90px;
-              width: 30px;
-              height: 30px;
-              transition: 0.3s;
-              &:hover {
-                background-color: grey;
-              }
-            `}
-            onClick={() => onClick()}
-          >
-            <CloseIcon fontSize="small" />
-          </div>
+          <Tooltip title="Kembali">
+            <div
+              className={css`
+                cursor: pointer;
+                background-color: black;
+                color: white;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 90px;
+                width: 30px;
+                height: 30px;
+                transition: 0.3s;
+                &:hover {
+                  background-color: grey;
+                }
+              `}
+              onClick={() => onClick()}
+            >
+              <CloseIcon fontSize="small" />
+            </div>
+          </Tooltip>
         </Box>
       )}
       <img
@@ -129,54 +115,58 @@ const Header: FC<IProps> = ({
       />
       {close && (
         <Box sx={{ position: "absolute", top: "20px", right: "20px" }}>
-          <div
-            className={css`
-              cursor: pointer;
-              // background-color: black;
-              color: white;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              border-radius: 90px;
-              width: 30px;
-              height: 30px;
-              transition: 0.3s;
-              &:hover {
-                background-color: grey;
-              }
-            `}
-            onClick={() => onClick()}
-          >
-            <CloseIcon fontSize="small" />
-          </div>
+          <Tooltip title="Tutup">
+            <div
+              className={css`
+                cursor: pointer;
+                // background-color: black;
+                color: white;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 90px;
+                width: 30px;
+                height: 30px;
+                transition: 0.3s;
+                &:hover {
+                  background-color: grey;
+                }
+              `}
+              onClick={() => onClick()}
+            >
+              <CloseIcon fontSize="small" />
+            </div>
+          </Tooltip>
         </Box>
       )}
       {option && (
         <Box sx={{ position: "absolute", top: "20px", left: "20px" }}>
-          <div
-            className={css`
-              cursor: pointer;
-              // background-color: black;
-              color: white;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              border-radius: 90px;
-              width: 30px;
-              height: 30px;
-              transition: 0.3s;
-              &:hover {
-                background-color: grey;
-              }
-            `}
-            onClick={(e: any) => handleClickOptions(e)}
-            id="basic-button"
-            aria-controls={open ? "basic-menu" : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? "true" : undefined}
-          >
-            <MenuIcon fontSize="small" />
-          </div>
+          <Tooltip title="Menu">
+            <div
+              className={css`
+                cursor: pointer;
+                // background-color: black;
+                color: white;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 90px;
+                width: 30px;
+                height: 30px;
+                transition: 0.3s;
+                &:hover {
+                  background-color: grey;
+                }
+              `}
+              onClick={(e: any) => handleClickOptions(e)}
+              id="basic-button"
+              aria-controls={open ? "basic-menu" : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? "true" : undefined}
+            >
+              <MenuIcon fontSize="small" />
+            </div>
+          </Tooltip>
           <Menu
             id="basic-menu"
             anchorEl={anchorEl}
@@ -219,26 +209,16 @@ const Header: FC<IProps> = ({
           </Menu>
         </Box>
       )}
-      <Dialog
-        open={openModal}
-        TransitionComponent={Transition}
-        keepMounted
-        onClose={handleCloseModal}
-        hideBackdrop
-        aria-describedby="alert-dialog-slide-description"
+      <DialogComponent
+        title="Seberapa puaskah kamu dengan layanan chat bot ini?"
+        openModal={openModal}
+        handleCloseModal={() => handleCloseModal()}
       >
-        <DialogTitle>{"Use Google's location service?"}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-slide-description">
-            Let Google help apps determine location. This means sending
-            anonymous location data to Google, even when no apps are running.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseModal}>Disagree</Button>
-          <Button onClick={handleCloseModal}>Agree</Button>
-        </DialogActions>
-      </Dialog>
+        <p>
+          Let Google help apps determine location. This means sending anonymous
+          location data to Google, even when no apps are running.
+        </p>
+      </DialogComponent>
     </Box>
   );
 };
