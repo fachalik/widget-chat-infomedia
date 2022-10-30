@@ -44,6 +44,7 @@ const FloatingDialog: FC<IProps> = ({ open, onClick }) => {
 
       <div
         className={css`
+          z-index:3;
           cursor:pointer;
           position: absolute;
           right: 2px;
