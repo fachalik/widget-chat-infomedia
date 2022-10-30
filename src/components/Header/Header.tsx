@@ -11,11 +11,13 @@ import {
   MenuItem,
   Tooltip,
 } from "@mui/material";
+import { Form, Formik } from "formik";
 import React, { FC } from "react";
+import * as yup from "yup";
 
 import useWidgetChat from "../../store/widget-chat";
 import useWidgetStore from "../../store/widget-store";
-import DialogComponent from "../DialogComponent";
+import DialogReview from "../DialogComponent/DialogReview";
 
 interface IProps {
   onClick: () => void;
@@ -209,16 +211,12 @@ const Header: FC<IProps> = ({
           </Menu>
         </Box>
       )}
-      <DialogComponent
-        title="Seberapa puaskah kamu dengan layanan chat bot ini?"
+      {/* Dialog Component for review bot */}
+      <DialogReview
+        title={"Seberapa puaskah kamu dengan layanan chat bot ini?"}
+        handleCloseModal={handleCloseModal}
         openModal={openModal}
-        handleCloseModal={() => handleCloseModal()}
-      >
-        <p>
-          Let Google help apps determine location. This means sending anonymous
-          location data to Google, even when no apps are running.
-        </p>
-      </DialogComponent>
+      />
     </Box>
   );
 };

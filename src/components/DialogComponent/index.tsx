@@ -12,22 +12,26 @@ interface IProps {
   openModal: boolean;
   handleCloseModal: () => void;
   children: JSX.Element;
+  showAction?: boolean;
 }
 
 const DialogComponent: FC<IProps> = ({
   title,
   openModal,
-  handleCloseModal,
   children,
+  showAction = false,
+  handleCloseModal,
 }) => {
   return (
     <Dialog open={openModal} onClose={handleCloseModal} hideBackdrop>
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>{children}</DialogContent>
-      <DialogActions>
-        <Button onClick={handleCloseModal}>Disagree</Button>
-        <Button onClick={handleCloseModal}>Agree</Button>
-      </DialogActions>
+      {showAction && (
+        <DialogActions>
+          <Button onClick={handleCloseModal}>Disagree</Button>
+          <Button onClick={handleCloseModal}>Agree</Button>
+        </DialogActions>
+      )}
     </Dialog>
   );
 };
