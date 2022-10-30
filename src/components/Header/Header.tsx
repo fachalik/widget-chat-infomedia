@@ -3,7 +3,21 @@ import CloseIcon from "@mui/icons-material/Close";
 import MenuIcon from "@mui/icons-material/Menu";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
-import { Box, ListItemIcon, ListItemText, Menu, MenuItem } from "@mui/material";
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  ListItemIcon,
+  ListItemText,
+  Menu,
+  MenuItem,
+  Slide,
+} from "@mui/material";
+import { TransitionProps } from "@mui/material/transitions";
 import React, { FC } from "react";
 
 import useWidgetChat from "../../store/widget-chat";
@@ -33,6 +47,17 @@ const Header: FC<IProps> = ({
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
+  const [openModal, setOpenModal] = React.useState<boolean>(false);
+
+  const handleOpenModal = async () => {
+    await setAnchorEl(null);
+    await setOpenModal(true);
+  };
+  const handleCloseModal = async () => {
+    await setAnchorEl(null);
+    await setOpenModal(false);
+  };
+
   const handleClickOptions = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -46,6 +71,15 @@ const Header: FC<IProps> = ({
     await resetWidgetChatStore();
     await resetWidgetStore();
   };
+
+  const Transition = React.forwardRef(function Transition(
+    props: TransitionProps & {
+      children: React.ReactElement<any, any>;
+    },
+    ref: React.Ref<unknown>
+  ) {
+    return <Slide direction="up" ref={ref} {...props} />;
+  });
 
   return (
     <Box
@@ -168,7 +202,7 @@ const Header: FC<IProps> = ({
                 </span>
               </ListItemText>
             </MenuItem>
-            <MenuItem onClick={handleCloseOptions}>
+            <MenuItem onClick={handleOpenModal}>
               <ListItemIcon>
                 <StarBorderIcon fontSize="small" />
               </ListItemIcon>
@@ -185,6 +219,26 @@ const Header: FC<IProps> = ({
           </Menu>
         </Box>
       )}
+      <Dialog
+        open={openModal}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleCloseModal}
+        hideBackdrop
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle>{"Use Google's location service?"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+            Let Google help apps determine location. This means sending
+            anonymous location data to Google, even when no apps are running.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseModal}>Disagree</Button>
+          <Button onClick={handleCloseModal}>Agree</Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };
