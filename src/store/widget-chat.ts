@@ -48,7 +48,6 @@ const useWidgetChat = create<Store>()(
     persist(
       (set, get) => ({
         ...initialState,
-
         async createSession(postData: any) {
           const { setError } = get();
           try {
@@ -439,12 +438,12 @@ const useWidgetChat = create<Store>()(
 
             set(() => ({ chatOn: false, status: "Chat live berakhir" }));
             await http().post("/endSession", postData);
-            if (process.env.ACCOUNT_ID) {
+            if (process.env.VITE_ACCOUNT_ID) {
               await http().post(
-                `https://midlibra.onx.co.id/octopushchat/livechat/end/botpress/onx/${process.env.TENANT}`,
+                `https://midlibra.onx.co.id/octopushchat/livechat/end/botpress/onx/${process.env.VITE_TENANT}`,
                 {
                   unique_id: INF_token,
-                  account_id: process.env.ACCOUNT_ID,
+                  account_id: process.env.VITE_ACCOUNT_ID,
                 }
               );
             }
@@ -462,12 +461,12 @@ const useWidgetChat = create<Store>()(
           try {
             set(() => ({ chatOn: false, status: "Chat live berakhir" }));
 
-            if (process.env.ACCOUNT_ID) {
+            if (process.env.VITE_ACCOUNT_ID) {
               await http().post(
-                `https://midlibra.onx.co.id/octopushchat/livechat/end/botpress/onx/${process.env.TENANT}`,
+                `https://midlibra.onx.co.id/octopushchat/livechat/end/botpress/onx/${process.env.VITE_TENANT}`,
                 {
                   unique_id: INF_token,
-                  account_id: process.env.ACCOUNT_ID,
+                  account_id: process.env.VITE_ACCOUNT_ID,
                 }
               );
             }

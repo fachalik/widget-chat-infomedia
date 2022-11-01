@@ -16,7 +16,7 @@ export default ({ mode }) => {
     build: {
       rollupOptions: {
         output: {
-          entryFileNames: `${process.env.TENANT}.js`,
+          entryFileNames: `${process.env.VITE_TENANT}.js`,
         },
       },
     },

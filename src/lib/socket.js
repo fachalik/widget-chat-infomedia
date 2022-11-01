@@ -8,13 +8,13 @@ import useWidgetChat from "../store/widget-chat";
 export default function initializeSocket(token) {
   const { clearSession, statusChat, addChat } = useWidgetChat((state) => state);
   try {
-    const socketUrl = process.env.API_URL;
-    const tenant = process.env.TENANT;
+    const socketUrl = process.env.VITE_API_URL;
+    const tenant = process.env.VITE_TENANT;
     let error = null;
     const socket = io(socketUrl, {
       transports: ["websocket"],
       autoConnect: false,
-      path: tenant ? `/${process.env.TENANT}/socket.io` : "",
+      path: tenant ? `/${process.env.VITE_TENANT}/socket.io` : "",
     });
 
     socket.on("connect", () => {
