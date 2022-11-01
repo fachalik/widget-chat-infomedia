@@ -438,12 +438,12 @@ const useWidgetChat = create<Store>()(
 
             set(() => ({ chatOn: false, status: "Chat live berakhir" }));
             await http().post("/endSession", postData);
-            if (process.env.VITE_ACCOUNT_ID) {
+            if (import.meta.env.VITE_ACCOUNT_ID) {
               await http().post(
-                `https://midlibra.onx.co.id/octopushchat/livechat/end/botpress/onx/${process.env.VITE_TENANT}`,
+                `https://midlibra.onx.co.id/octopushchat/livechat/end/botpress/onx/${import.meta.env.VITE_TENANT}`,
                 {
                   unique_id: INF_token,
-                  account_id: process.env.VITE_ACCOUNT_ID,
+                  account_id: import.meta.env.VITE_ACCOUNT_ID,
                 }
               );
             }
@@ -461,12 +461,12 @@ const useWidgetChat = create<Store>()(
           try {
             set(() => ({ chatOn: false, status: "Chat live berakhir" }));
 
-            if (process.env.VITE_ACCOUNT_ID) {
+            if (import.meta.env.VITE_ACCOUNT_ID) {
               await http().post(
-                `https://midlibra.onx.co.id/octopushchat/livechat/end/botpress/onx/${process.env.VITE_TENANT}`,
+                `https://midlibra.onx.co.id/octopushchat/livechat/end/botpress/onx/${import.meta.env.VITE_TENANT}`,
                 {
                   unique_id: INF_token,
-                  account_id: process.env.VITE_ACCOUNT_ID,
+                  account_id: import.meta.env.VITE_ACCOUNT_ID,
                 }
               );
             }
