@@ -5,7 +5,7 @@ import { devtools, persist } from "zustand/middleware";
 
 import general from "../lib/general";
 import http from "../lib/https";
-import socket from "../lib/socket";
+// import socket from "../lib/socket";
 
 type Store = {
   chat: any[];
