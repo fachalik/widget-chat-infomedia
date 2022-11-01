@@ -4,7 +4,18 @@ import SendIcon from "@mui/icons-material/Send";
 import { Box, Input, Stack, Tooltip } from "@mui/material";
 import React from "react";
 
+import useWidgetChat from "../../store/widget-chat";
+
 const ChatComponent = () => {
+  const { addChat } = useWidgetChat((state) => state);
+  const [value, setValue] = React.useState<string>("");
+
+  const handleSendChat = async (e: string) => {
+    if (!e) return;
+    await addChat(e);
+    await setValue("");
+  };
+
   return (
     <Box sx={{ minHeight: "10%", backgroundColor: "white" }}>
       <Stack
@@ -34,9 +45,16 @@ const ChatComponent = () => {
             <AttachFileIcon fontSize="small" />
           </div>
         </Tooltip>
-        <Input multiline maxRows={5} sx={{ width: "90%" }} />
+        <Input
+          multiline
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          maxRows={5}
+          sx={{ width: "90%" }}
+        />
         <Tooltip title="Kirim">
           <div
+            onClick={() => handleSendChat(value)}
             className={css`
               cursor: pointer;
               color: red;
