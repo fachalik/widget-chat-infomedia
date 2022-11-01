@@ -1,4 +1,3 @@
-import htpps from "../utils/https";
 export default {
   /* GENERAL */
   async INF_notifSound() {
