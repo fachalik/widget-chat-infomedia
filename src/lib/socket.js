@@ -1,7 +1,7 @@
 import io from "socket.io-client";
 import moment from "moment";
 
-import general from "../utils/general";
+// import general from "../utils/general";
 
 import useWidgetChat from "../store/widget-chat";
 
@@ -104,7 +104,7 @@ export default function initializeSocket(token) {
         //   payload: {},
         // });
       }
-      general.INF_notifSound();
+      // general.INF_notifSound();
     });
 
     socket.on("agent:message:carousel", (data) => {
@@ -118,7 +118,7 @@ export default function initializeSocket(token) {
       //   type: ADD_CHAT,
       //   payload: {},
       // });
-      general.INF_notifSound();
+      // general.INF_notifSound();
     });
 
     socket.on("agent:message:button", (data) => {
@@ -166,16 +166,16 @@ export default function initializeSocket(token) {
       //     },
       //   });
       // }
-      general.INF_notifSound();
+      // general.INF_notifSound();
     });
 
     socket.on("agent:message:media", (data) => {
       // console.log("agent:message:media", data);
-      general.INF_notifSound();
+      // general.INF_notifSound();
       let message;
-      if (typeof data.message !== "undefined") {
-        message = general.INF_convertAttachment(data.message);
-      }
+      // if (typeof data.message !== "undefined") {
+      //   message = general.INF_convertAttachment(data.message);
+      // }
       // console.log(data.message, message);
       addChat({
         message: message?.message,
@@ -202,7 +202,7 @@ export default function initializeSocket(token) {
 
     socket.on("agent:event:endSession", (data) => {
       // console.log("agent:event:endSession", data);
-      general.INF_notifSound();
+      // general.INF_notifSound();
       statusChat("Chat live berakhir", false);
       // dispatch({
       //   type: STATUS_CHAT,
