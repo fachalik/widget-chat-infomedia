@@ -5,6 +5,7 @@
       "dom",
       // "dom.iterable",
       // "esnext",
+      "ES2021",
       "ES6"
     ],
     "allowJs": true,

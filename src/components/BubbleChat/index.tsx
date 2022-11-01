@@ -160,11 +160,11 @@ const BubbleChat: FC<IProps> = ({ type, from, message, time, fileName }) => {
                   variant="contained"
                   key={index}
                   color="primary"
-                  classes={{ root: classes.button }}
+                  // classes={{ root: classes.button }}
                   onClick={() => {
                     console.log(val.value);
-                    if (val.value === "selesai") return context.endSessionBot();
-                    context.sendMessageButton(val.value, "bot", val.label);
+                    // if (val.value === "selesai") return context.endSessionBot();
+                    // context.sendMessageButton(val.value, "bot", val.label);
                   }}
                 >
                   {val.label}
@@ -191,11 +191,11 @@ const BubbleChat: FC<IProps> = ({ type, from, message, time, fileName }) => {
                   variant="contained"
                   key={index}
                   color="primary"
-                  classes={{ root: classes.button }}
-                  onClick={() => {
-                    console.log(e.value);
-                    if (e.value === "selesai") return context.endSessionBot();
-                    context.sendMessageButton(val.value, "bot", val.label);
+                  // classes={{ root: classes.button }}
+                  onClick={(e: any) => {
+                    console.log(e.target.value);
+                    // if (e.value === "selesai") return context.endSessionBot();
+                    // context.sendMessageButton(val.value, "bot", val.label);
                   }}
                 >
                   {val.label}
@@ -211,7 +211,10 @@ const BubbleChat: FC<IProps> = ({ type, from, message, time, fileName }) => {
           const urlRegexText =
             /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g;
           const regexResultText = htmlStringText.match(urlRegexText);
-          if (regexResultText?.length > 0) {
+          if (
+            regexResultText?.length !== undefined &&
+            regexResultText?.length > 0
+          ) {
             regexResultText.forEach((element: any) => {
               htmlStringText = htmlStringText.replaceAll(
                 element,
@@ -240,7 +243,7 @@ const BubbleChat: FC<IProps> = ({ type, from, message, time, fileName }) => {
       </div>
       <div
         className={`wgchat-bubblechat ${from === "me" && "me"}`}
-        style={{ backgroundColor: from === "me" && BUBLLE_CHAT_COLOR }}
+        // style={{ backgroundColor: from === "me" && BUBLLE_CHAT_COLOR }}
       >
         {typeMessage()}
       </div>
