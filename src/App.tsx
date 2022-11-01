@@ -4,12 +4,14 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import FloatingButton from "./components/FloatingButton";
 import FloatingDialog from "./components/FloatingDialog";
 import Wrapper from "./components/Wrapper";
+import socket from "./lib/socket";
 import { timeout } from "./lib/utilitys";
 import Home from "./pages/Home";
 import Loading from "./pages/Loading";
 import Login from "./pages/Login";
 import OnBoard from "./pages/OnBoard";
 import { Logout } from "./routes/Logout";
+import useWidgetChat from "./store/widget-chat";
 import useWidgetOpen from "./store/widget-open";
 import useWidgetStore from "./store/widget-store";
 
@@ -18,6 +20,8 @@ const App = () => {
     (state) => state
   );
   const { open, setOpen } = useWidgetOpen((state) => state);
+
+  const { getHistoryChat, setSession } = useWidgetChat((state) => state);
 
   const [isToggle, setIsToggle] = React.useState<boolean>(true);
 
@@ -50,6 +54,15 @@ const App = () => {
     };
     if (open) handleLoader();
   }, [open, isLoad, setIsLoad]);
+
+  React.useEffect(() => {
+    const token = localStorage.getItem("INF_token");
+    if (token) {
+      socket(token);
+      setSession(token);
+      getHistoryChat(token);
+    }
+  }, []);
 
   const handleToggle = () => {
     setIsToggle(false);

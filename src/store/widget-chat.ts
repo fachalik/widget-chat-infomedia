@@ -19,6 +19,7 @@ type Store = {
   createSession: (postData: any) => void;
   clearSession: () => void;
   getHistoryChat: (token: any) => void;
+  setSession: (token: any) => void;
   sendMessage: (message: string, type: string, label: string) => void;
   sendMessageButton: (message: string, type: string, label: string) => void;
   sendFiles: (files: any) => void;
@@ -26,6 +27,7 @@ type Store = {
   endSession: () => void;
   endSessionBot: () => void;
   sendRating: (value: any) => void;
+  statusChat: (value: any, chatOn: boolean) => void;
   setError: (val: any) => void;
   addChat: (chat: any) => void;
   reset: () => void;
@@ -72,6 +74,14 @@ const useWidgetChat = create<Store>()(
             }
             set(() => ({ loading: false }));
           }
+        },
+
+        setSession(token: any) {
+          set(() => ({
+            INF_token: token,
+            chatOn: true,
+            status: "You are connected",
+          }));
         },
 
         setError(val: any) {
@@ -243,11 +253,9 @@ const useWidgetChat = create<Store>()(
         },
 
         addChat(chat: any) {
-          set(
-            (state) => ({ chat: [...state.chat, chat] }),
-            false,
-            "widget-chat"
-          );
+          set((state) => ({
+            message: [...state.message, chat],
+          }));
         },
 
         async sendMessage(
@@ -484,6 +492,12 @@ const useWidgetChat = create<Store>()(
           } catch (error: any) {
             console.log(error);
           }
+        },
+
+        statusChat(value: any, chatOn: boolean) {
+          if (chatOn && value) set(() => ({ status: value, chatOn }));
+          if (chatOn) set(() => ({ chatOn }));
+          if (value) set(() => ({ status: value }));
         },
 
         reset() {
