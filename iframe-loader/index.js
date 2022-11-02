@@ -176,8 +176,9 @@ function widgetApi() {
     const PRIMARY_COLOR = "EB1C24"
     const SECONDARY_COLOR="929497"
     const logo = "https://www.infomedia.co.id/chat/assets/img/header_logo.png"
+    const postLoginToken = null
     // const widgetUrl = `${widgetAddress}/?license=${license}&primaryColor=${PRIMARY_COLOR}&secondarColor=${SECONDARY_COLOR}`;
- const widgetUrl = `${widgetAddress}/?license=${license}&primaryColor=${PRIMARY_COLOR}&secondaryColor=${SECONDARY_COLOR}&logo=${logo}`;
+ const widgetUrl = `${widgetAddress}/?license=${license}&primaryColor=${PRIMARY_COLOR}&secondaryColor=${SECONDARY_COLOR}&logo=${logo}&postLoginToken=${postLoginToken}`;
 
     iframe.src = widgetUrl;
 

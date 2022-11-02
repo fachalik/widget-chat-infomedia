@@ -21,7 +21,8 @@ const App = () => {
   );
   const { open, setOpen } = useWidgetOpen((state) => state);
 
-  const { getHistoryChat, setSession } = useWidgetChat((state) => state);
+  const { getHistoryChat, setSession, setPostLoginToken, INF_token } =
+    useWidgetChat((state) => state);
 
   const [isToggle, setIsToggle] = React.useState<boolean>(true);
 
@@ -34,6 +35,7 @@ const App = () => {
     const searchParams = new URLSearchParams(window.location.search);
     const primary_color = searchParams.get("primaryColor");
     const secondary_color = searchParams.get("secondaryColor");
+    const postLoginToken = searchParams.get("postLoginToken");
     const logo = searchParams.get("logo");
     const color = {
       primary_color,
@@ -43,6 +45,7 @@ const App = () => {
     if (primary_color !== null && secondary_color !== null) {
       setColor(color);
     }
+    if (postLoginToken !== null) setPostLoginToken(token);
   }, []);
 
   React.useEffect(() => {
@@ -75,7 +78,7 @@ const App = () => {
           {open && !isLoad && (
             <Routes>
               <Route path="logout" element={<Logout />} />
-              {token === null ? (
+              {INF_token === null ? (
                 <>
                   <Route path="auth" element={<OnBoard />} />
                   <Route path="*" element={<Navigate to="/auth" />} />

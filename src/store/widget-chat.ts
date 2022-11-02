@@ -15,7 +15,9 @@ type Store = {
   chatOn: boolean;
   status: string | null;
   error: string | null;
+  postLoginToken: string | null;
 
+  setPostLoginToken: (token: any) => void;
   createSession: (postData: any) => void;
   clearSession: () => void;
   getHistoryChat: (token: any) => void;
@@ -41,6 +43,7 @@ const initialState = {
   chatOn: false,
   status: "",
   error: null,
+  postLoginToken: null,
 };
 
 const useWidgetChat = create<Store>()(
@@ -48,6 +51,11 @@ const useWidgetChat = create<Store>()(
     persist(
       (set, get) => ({
         ...initialState,
+
+        setPostLoginToken(token: any) {
+          set(() => ({ postLoginToken: token }));
+        },
+
         async createSession(postData: any) {
           const { setError } = get();
           try {
