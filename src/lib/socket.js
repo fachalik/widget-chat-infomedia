@@ -3,7 +3,6 @@ import moment from "moment";
 
 // import general from "../utils/general";
 
-
 const initializeSocket = (token, clearSession, statusChat, addChat) => {
   try {
     const socketUrl = import.meta.env.VITE_API_URL;
@@ -50,21 +49,21 @@ const initializeSocket = (token, clearSession, statusChat, addChat) => {
       // });
     });
 
-    socket.on("disconnect", (reason) => {
-      if (reason === "io server disconnect" || reason === "transport close") {
-        socket.connect();
-        console.log(`Disconnected: ${error || reason}`);
-      } else {
-        statusChat("You are disconnected");
-        // dispatch({
-        //   type: STATUS_CHAT,
-        //   payload: {
-        //     status: "You are disconnected",
-        //   },
-        // });
-        console.log(`Disconnected: ${error || reason}`);
-      }
-    });
+    // socket.on("disconnect", (reason) => {
+    //   if (reason === "io server disconnect" || reason === "transport close") {
+    //     socket.connect();
+    //     console.log(`Disconnected: ${error || reason}`);
+    //   } else {
+    //     statusChat("You are disconnected");
+    //     // dispatch({
+    //     //   type: STATUS_CHAT,
+    //     //   payload: {
+    //     //     status: "You are disconnected",
+    //     //   },
+    //     // });
+    //     console.log(`Disconnected: ${error || reason}`);
+    //   }
+    // });
 
     socket.on("agent:message:text", (data) => {
       if (data.messageType === "carousel") {
@@ -74,10 +73,6 @@ const initializeSocket = (token, clearSession, statusChat, addChat) => {
           type: data.messageType,
           time: moment().format("LLL"),
         });
-        // dispatch({
-        //   type: ADD_CHAT,
-        //   payload: {},
-        // });
       } else if (data.messageType === "button") {
         addChat({
           message: data.menu,
@@ -86,10 +81,6 @@ const initializeSocket = (token, clearSession, statusChat, addChat) => {
           title: data.title,
           time: moment().format("LLL"),
         });
-        // dispatch({
-        //   type: ADD_CHAT,
-        //   payload: {},
-        // });
       } else {
         addChat({
           message: data.message,
@@ -97,10 +88,6 @@ const initializeSocket = (token, clearSession, statusChat, addChat) => {
           type: "text",
           time: moment().format("LLL"),
         });
-        // dispatch({
-        //   type: ADD_CHAT,
-        //   payload: {},
-        // });
       }
       // general.INF_notifSound();
     });
@@ -112,10 +99,6 @@ const initializeSocket = (token, clearSession, statusChat, addChat) => {
         type: data.message.messageType,
         time: moment().format("LLL"),
       });
-      // dispatch({
-      //   type: ADD_CHAT,
-      //   payload: {},
-      // });
       // general.INF_notifSound();
     });
 
@@ -128,42 +111,6 @@ const initializeSocket = (token, clearSession, statusChat, addChat) => {
         title: data.title ?? null,
         time: moment().format("LLL"),
       });
-      // dispatch({
-      //   type: ADD_CHAT,
-      //   payload: {},
-      // });
-      // if (data.messageType === "carousel") {
-      //   dispatch({
-      //     type: ADD_CHAT,
-      //     payload: {
-      //       message: data.slider,
-      //       from: "bot",
-      //       type: data.messageType,
-      //       time: moment().format("LLL"),
-      //     },
-      //   });
-      // } else if (data.messageType === "button") {
-      //   dispatch({
-      //     type: ADD_CHAT,
-      //     payload: {
-      //       message: data.menu,
-      //       from: "bot",
-      //       type: data.messageType,
-      //       title: data.title,
-      //       time: moment().format("LLL"),
-      //     },
-      //   });
-      // } else {
-      //   dispatch({
-      //     type: ADD_CHAT,
-      //     payload: {
-      //       message: data.message,
-      //       from: data.from,
-      //       type: "text",
-      //       time: moment().format("LLL"),
-      //     },
-      //   });
-      // }
       // general.INF_notifSound();
     });
 
@@ -183,17 +130,7 @@ const initializeSocket = (token, clearSession, statusChat, addChat) => {
         mimeType: message?.mimeType,
         fileName: message?.fileName,
       });
-      // dispatch({
-      //   type: ADD_CHAT,
-      //   payload: {
-      //     message: message?.message,
-      //     from: data?.from,
-      //     type: message?.type,
-      //     time: moment().format("LLL"),
-      //     mimeType: message?.mimeType,
-      //     fileName: message?.fileName,
-      //   },
-      // });
+
       // INF_ready();
       // INF_addMessage("in", data.from, data.message, "media", new Date());
     });
@@ -202,13 +139,6 @@ const initializeSocket = (token, clearSession, statusChat, addChat) => {
       // console.log("agent:event:endSession", data);
       // general.INF_notifSound();
       statusChat("Chat live berakhir", false);
-      // dispatch({
-      //   type: STATUS_CHAT,
-      //   payload: {
-      //     chatOn: false,
-      //     status: "Chat live berakhir",
-      //   },
-      // });
       // INF_end();'
     });
 

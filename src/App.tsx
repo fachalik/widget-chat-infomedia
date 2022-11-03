@@ -67,6 +67,7 @@ const App = () => {
   }, [open, isLoad, setIsLoad]);
 
   React.useEffect(() => {
+    console.log(INF_token);
     if (INF_token) {
       socket(INF_token, clearSession, statusChat, addChat);
       setSession(INF_token);
