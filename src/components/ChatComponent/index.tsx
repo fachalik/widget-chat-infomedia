@@ -7,12 +7,12 @@ import React from "react";
 import useWidgetChat from "../../store/widget-chat";
 
 const ChatComponent = () => {
-  const { addChat } = useWidgetChat((state) => state);
+  const { sendMessage } = useWidgetChat((state) => state);
   const [value, setValue] = React.useState<string>("");
 
   const handleSendChat = async (e: string) => {
     if (!e) return;
-    await addChat(e);
+    await sendMessage(e, "text", "success");
     await setValue("");
   };
 

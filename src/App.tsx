@@ -21,8 +21,15 @@ const App = () => {
   );
   const { open, setOpen } = useWidgetOpen((state) => state);
 
-  const { getHistoryChat, setSession, setPostLoginToken, INF_token } =
-    useWidgetChat((state) => state);
+  const {
+    getHistoryChat,
+    setSession,
+    setPostLoginToken,
+    INF_token,
+    clearSession,
+    statusChat,
+    addChat,
+  } = useWidgetChat((state) => state);
 
   const [isToggle, setIsToggle] = React.useState<boolean>(true);
 
@@ -59,11 +66,10 @@ const App = () => {
   }, [open, isLoad, setIsLoad]);
 
   React.useEffect(() => {
-    const token = localStorage.getItem("INF_token");
-    if (token) {
-      socket(token);
-      setSession(token);
-      getHistoryChat(token);
+    if (INF_token) {
+      socket(INF_token, clearSession, statusChat, addChat);
+      setSession(INF_token);
+      getHistoryChat(INF_token);
     }
   }, []);
 

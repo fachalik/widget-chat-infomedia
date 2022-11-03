@@ -5,7 +5,7 @@ import { devtools, persist } from "zustand/middleware";
 
 import general from "../lib/general";
 import http from "../lib/https";
-// import socket from "../lib/socket";
+import socket from "../lib/socket";
 
 type Store = {
   chat: any[];
@@ -57,15 +57,15 @@ const useWidgetChat = create<Store>()(
         },
 
         async createSession(postData: any) {
-          const { setError } = get();
+          const { setError, clearSession, statusChat, addChat } = get();
           try {
             set(() => ({ loading: true }));
 
             const response = await http().post("/createSession", postData);
             if (!response.data?.error) {
-              localStorage.setItem("INF_token", response.data?.session);
+              console.log(response.data?.session);
               // change code in socket with zustand
-              // socket(dispatch, response.data?.session);
+              socket(response.data?.session, clearSession, statusChat, addChat);
               set(() => ({
                 INF_token: response.data?.session,
                 chatOn: true,
@@ -448,9 +448,8 @@ const useWidgetChat = create<Store>()(
             await http().post("/endSession", postData);
             if (import.meta.env.VITE_ACCOUNT_ID) {
               await http().post(
-                `https://midlibra.onx.co.id/octopushchat/livechat/end/botpress/onx/${
-                  import.meta.env.VITE_TENANT
-                }`,
+                `https://midlibra.onx.co.id/octopushchat/livechat/end/botpress/onx/
+                ${import.meta.env.VITE_TENANT}`,
                 {
                   unique_id: INF_token,
                   account_id: import.meta.env.VITE_ACCOUNT_ID,
@@ -473,9 +472,8 @@ const useWidgetChat = create<Store>()(
 
             if (import.meta.env.VITE_ACCOUNT_ID) {
               await http().post(
-                `https://midlibra.onx.co.id/octopushchat/livechat/end/botpress/onx/${
-                  import.meta.env.VITE_TENANT
-                }`,
+                `https://midlibra.onx.co.id/octopushchat/livechat/end/botpress/onx/
+                ${import.meta.env.VITE_TENANT}`,
                 {
                   unique_id: INF_token,
                   account_id: import.meta.env.VITE_ACCOUNT_ID,
@@ -513,6 +511,7 @@ const useWidgetChat = create<Store>()(
 
         reset() {
           set(() => initialState);
+          localStorage.clear();
         },
       }),
       {

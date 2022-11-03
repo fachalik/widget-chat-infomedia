@@ -3,10 +3,7 @@ import moment from "moment";
 
 // import general from "../utils/general";
 
-import useWidgetChat from "../store/widget-chat";
-
-export default function initializeSocket(token) {
-  const { clearSession, statusChat, addChat } = useWidgetChat((state) => state);
+const initializeSocket = (token, clearSession, statusChat, addChat) => {
   try {
     const socketUrl = import.meta.env.VITE_API_URL;
     const tenant = import.meta.env.VITE_TENANT;
@@ -18,7 +15,7 @@ export default function initializeSocket(token) {
     });
 
     socket.on("connect", () => {
-      // console.log("Connected");
+      console.log("Connected");
       socket.emit("authentication", {
         token: token,
       });
@@ -216,13 +213,8 @@ export default function initializeSocket(token) {
 
     socket.open();
   } catch (err) {
-    // console.log(`Error: ${err}`);
+    console.log(`Error: ${err}`);
     statusChat("You are disconnected", false);
-    // dispatch({
-    //   type: STATUS_CHAT,
-    //   payload: {
-    //     status: "You are disconnected",
-    //   },
-    // });
   }
-}
+};
+export default initializeSocket;
