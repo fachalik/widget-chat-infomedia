@@ -7,6 +7,15 @@ import useWidgetChat from "../store/widget-chat";
 
 const Home = () => {
   const { message } = useWidgetChat((state) => state);
+  const messageEndRef = React.useRef<any>(null);
+
+  const scrollToButtom = () => {
+    messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  React.useEffect(() => {
+    scrollToButtom();
+  });
 
   return (
     <WrapperChat>
@@ -28,6 +37,7 @@ const Home = () => {
             {...val}
           />
         ))}
+        <div className="wgChat-endmessage" ref={messageEndRef} />
       </Box>
     </WrapperChat>
   );
