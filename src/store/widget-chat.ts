@@ -20,6 +20,7 @@ type Store = {
   setPostLoginToken: (token: any) => void;
   createSession: (postData: any) => void;
   clearSession: () => void;
+  clearHistoryChat: () => void;
   getHistoryChat: (token: any) => void;
   setSession: (token: any) => void;
   sendMessage: (message: string, type: string, label: string) => void;
@@ -257,6 +258,10 @@ const useWidgetChat = create<Store>()(
             }
             set(() => ({ loading: false }));
           }
+        },
+
+        clearHistoryChat() {
+          set(() => ({ message: [] }));
         },
 
         addChat(chat: any) {

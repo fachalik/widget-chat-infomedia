@@ -29,6 +29,7 @@ const App = () => {
     clearSession,
     statusChat,
     addChat,
+    clearHistoryChat,
   } = useWidgetChat((state) => state);
 
   const [isToggle, setIsToggle] = React.useState<boolean>(true);
@@ -69,6 +70,7 @@ const App = () => {
     if (INF_token) {
       socket(INF_token, clearSession, statusChat, addChat);
       setSession(INF_token);
+      clearHistoryChat();
       getHistoryChat(INF_token);
     }
   }, []);
