@@ -8,7 +8,6 @@ import http from "../lib/https";
 import socket from "../lib/socket";
 
 type Store = {
-  chat: any[];
   INF_token: string | null | any;
   loading: boolean;
   message: any[];
@@ -37,7 +36,6 @@ type Store = {
 };
 
 const initialState = {
-  chat: [],
   INF_token: null,
   loading: false,
   message: [],
@@ -60,53 +58,65 @@ const useWidgetChat = create<Store>()(
         async createSession(postData: any) {
           const { setError, clearSession, statusChat, addChat } = get();
           try {
-            set(() => ({ loading: true }));
+            set(() => ({ loading: true }), false, "widget-loading-true");
 
             const response = await http().post("/createSession", postData);
             if (!response.data?.error) {
               console.log(response.data?.session);
               // change code in socket with zustand
               socket(response.data?.session, clearSession, statusChat, addChat);
-              set(() => ({
-                INF_token: response.data?.session,
-                chatOn: true,
-                status: "you are connected",
-              }));
+              set(
+                () => ({
+                  INF_token: response.data?.session,
+                  chatOn: true,
+                  status: "you are connected",
+                }),
+                false,
+                "widget-set-session"
+              );
             }
-            set(() => ({ loading: false }));
+            set(() => ({ loading: false }), false, "widget-loading-false");
           } catch (error: any) {
             if (error.response?.data.message) {
               setError(error.response.data.message);
             } else {
               setError("Something wrong");
             }
-            set(() => ({ loading: false }));
+            set(() => ({ loading: false }), false, "widget-loading-false");
           }
         },
 
         setSession(token: any) {
-          set(() => ({
-            INF_token: token,
-            chatOn: true,
-            status: "You are connected",
-          }));
+          set(
+            () => ({
+              INF_token: token,
+              chatOn: true,
+              status: "You are connected",
+            }),
+            false,
+            "widget-set-session"
+          );
         },
 
         setError(val: any) {
-          set(() => ({ error: `Error : ${val}` }));
+          set(() => ({ error: `Error : ${val}` }), false, "widget-set-error");
 
           setTimeout(() => {
-            set(() => ({ error: null }));
+            set(() => ({ error: null }), false, "widget-set-error-false");
           }, 2000);
         },
 
         clearSession() {
-          set(() => ({
-            message: [],
-            chatOn: false,
-            status: "Silahkan isi form untuk memulai chat",
-            INF_token: null,
-          }));
+          set(
+            () => ({
+              message: [],
+              chatOn: false,
+              status: "Silahkan isi form untuk memulai chat",
+              INF_token: null,
+            }),
+            false,
+            "widget-clear-session"
+          );
         },
 
         async getHistoryChat(token: any) {
@@ -144,31 +154,39 @@ const useWidgetChat = create<Store>()(
                         const message = general.INF_convertAttachment(
                           val.message
                         );
-                        set((state) => ({
-                          message: [
-                            ...state.message,
-                            {
-                              message: val.message,
-                              from: "me",
-                              type: message.type,
-                              time: moment(val.dateSend).format("LLL"),
-                              mimeType: message?.mimeType,
-                              fileName: message?.fileName,
-                            },
-                          ],
-                        }));
+                        set(
+                          (state) => ({
+                            message: [
+                              ...state.message,
+                              {
+                                message: val.message,
+                                from: "me",
+                                type: message.type,
+                                time: moment(val.dateSend).format("LLL"),
+                                mimeType: message?.mimeType,
+                                fileName: message?.fileName,
+                              },
+                            ],
+                          }),
+                          false,
+                          "widget-add-message"
+                        );
                       } else {
-                        set((state) => ({
-                          message: [
-                            ...state.message,
-                            {
-                              message: val.message,
-                              from: "me",
-                              type: val.messageType,
-                              time: moment(val.dateSend).format("LLL"),
-                            },
-                          ],
-                        }));
+                        set(
+                          (state) => ({
+                            message: [
+                              ...state.message,
+                              {
+                                message: val.message,
+                                from: "me",
+                                type: val.messageType,
+                                time: moment(val.dateSend).format("LLL"),
+                              },
+                            ],
+                          }),
+                          false,
+                          "widget-add-message"
+                        );
                       }
                     } else {
                       // masih dipertanyakan
@@ -181,69 +199,89 @@ const useWidgetChat = create<Store>()(
                         const message = general.INF_convertAttachment(
                           val.message
                         );
-                        set((state) => ({
-                          message: [
-                            ...state.message,
-                            {
-                              message: message.message,
-                              from: val.from,
-                              type: message.type,
-                              time: moment(val.dateSend).format("LLL"),
-                              mimeType: message?.mimeType,
-                              fileName: message?.fileName,
-                            },
-                          ],
-                        }));
+                        set(
+                          (state) => ({
+                            message: [
+                              ...state.message,
+                              {
+                                message: message.message,
+                                from: val.from,
+                                type: message.type,
+                                time: moment(val.dateSend).format("LLL"),
+                                mimeType: message?.mimeType,
+                                fileName: message?.fileName,
+                              },
+                            ],
+                          }),
+                          false,
+                          "widget-add-message"
+                        );
                       } else if (val.messageType === "carousel") {
-                        set((state) => ({
-                          message: [
-                            ...state.message,
-                            {
-                              message: val.message.slider,
-                              from: "bot",
-                              type: val.message.messageType,
-                              time: moment().format("LLL"),
-                            },
-                          ],
-                        }));
+                        set(
+                          (state) => ({
+                            message: [
+                              ...state.message,
+                              {
+                                message: val.message.slider,
+                                from: "bot",
+                                type: val.message.messageType,
+                                time: moment().format("LLL"),
+                              },
+                            ],
+                          }),
+                          false,
+                          "widget-add-message"
+                        );
                       } else if (val.messageType === "button") {
-                        set((state) => ({
-                          message: [
-                            ...state.message,
-                            {
-                              message: val.message,
-                              from: "bot",
-                              type: val.messageType,
-                              title: val.title,
-                              time: moment().format("LLL"),
-                            },
-                          ],
-                        }));
+                        set(
+                          (state) => ({
+                            message: [
+                              ...state.message,
+                              {
+                                message: val.message,
+                                from: "bot",
+                                type: val.messageType,
+                                title: val.title,
+                                time: moment().format("LLL"),
+                              },
+                            ],
+                          }),
+                          false,
+                          "widget-add-message"
+                        );
                       } else if (val.messageType === "buttonList") {
-                        set((state) => ({
-                          message: [
-                            ...state.message,
-                            {
-                              message: val.message,
-                              from: "bot",
-                              type: val.messageType,
-                              title: val.title,
-                              time: moment().format("LLL"),
-                            },
-                          ],
-                        }));
+                        set(
+                          (state) => ({
+                            message: [
+                              ...state.message,
+                              {
+                                message: val.message,
+                                from: "bot",
+                                type: val.messageType,
+                                title: val.title,
+                                time: moment().format("LLL"),
+                              },
+                            ],
+                          }),
+                          false,
+                          "widget-add-message"
+                        );
                       } else {
-                        set((state) => ({
-                          message: [
-                            ...state.message,
-                            {
-                              message: val.message,
-                              from: val.from,
-                              type: val.messageType,
-                              time: moment(val.dateSend).format("LLL"),
-                            },
-                          ],
-                        }));
+                        set(
+                          (state) => ({
+                            message: [
+                              ...state.message,
+                              {
+                                message: val.message,
+                                from: val.from,
+                                type: val.messageType,
+                                time: moment(val.dateSend).format("LLL"),
+                              },
+                            ],
+                          }),
+                          false,
+                          "widget-add-message"
+                        );
                       }
                     }
                   }
@@ -256,18 +294,22 @@ const useWidgetChat = create<Store>()(
             } else {
               setError("Something wrong");
             }
-            set(() => ({ loading: false }));
+            set(() => ({ loading: false }), false, "widget-loading-false");
           }
         },
 
         clearHistoryChat() {
-          set(() => ({ message: [] }));
+          set(() => ({ message: [] }), false, "widget-clear-history-chat");
         },
 
         addChat(chat: any) {
-          set((state) => ({
-            message: [...state.message, chat],
-          }));
+          set(
+            (state) => ({
+              message: [...state.message, chat],
+            }),
+            false,
+            "widget-add-message"
+          );
         },
 
         async sendMessage(
@@ -283,17 +325,21 @@ const useWidgetChat = create<Store>()(
             };
             const response = await http().post("/client/reply/text", postData);
             if (!response.data?.error) {
-              set((state) => ({
-                message: [
-                  ...state.message,
-                  {
-                    message: type !== "bot" ? message : label,
-                    from: "me",
-                    type: "text",
-                    time: moment().format("LLL"),
-                  },
-                ],
-              }));
+              set(
+                (state) => ({
+                  message: [
+                    ...state.message,
+                    {
+                      message: type !== "bot" ? message : label,
+                      from: "me",
+                      type: "text",
+                      time: moment().format("LLL"),
+                    },
+                  ],
+                }),
+                false,
+                "widget-add-message"
+              );
             }
           } catch (error: any) {
             if (error.response?.data.message) {
@@ -301,7 +347,7 @@ const useWidgetChat = create<Store>()(
             } else {
               setError("Something wrong");
             }
-            set(() => ({ loading: false }));
+            set(() => ({ loading: false }), false, "widget-loading-false");
           }
         },
 
@@ -316,17 +362,21 @@ const useWidgetChat = create<Store>()(
               message,
               token: INF_token,
             };
-            set((state) => ({
-              message: [
-                ...state.message,
-                {
-                  message: type !== "bot" ? message : label,
-                  from: "me",
-                  type: "text",
-                  time: moment().format("LLL"),
-                },
-              ],
-            }));
+            set(
+              (state) => ({
+                message: [
+                  ...state.message,
+                  {
+                    message: type !== "bot" ? message : label,
+                    from: "me",
+                    type: "text",
+                    time: moment().format("LLL"),
+                  },
+                ],
+              }),
+              false,
+              "widget-add-message"
+            );
             const response = await http().post(
               "/client/reply/button",
               postData
@@ -343,7 +393,7 @@ const useWidgetChat = create<Store>()(
             } else {
               setError("Something wrong");
             }
-            set(() => ({ loading: false }));
+            set(() => ({ loading: false }), false, "widget-loading-false");
           }
         },
 
@@ -379,19 +429,23 @@ const useWidgetChat = create<Store>()(
                     responseReplay.data.message
                   );
                 }
-                set((state) => ({
-                  message: [
-                    ...state.message,
-                    {
-                      message: message?.message,
-                      from: "me",
-                      type: message?.type,
-                      time: moment().format("LLL"),
-                      mimeType: message?.mimeType,
-                      fileName: message?.fileName,
-                    },
-                  ],
-                }));
+                set(
+                  (state) => ({
+                    message: [
+                      ...state.message,
+                      {
+                        message: message?.message,
+                        from: "me",
+                        type: message?.type,
+                        time: moment().format("LLL"),
+                        mimeType: message?.mimeType,
+                        fileName: message?.fileName,
+                      },
+                    ],
+                  }),
+                  false,
+                  "widget-add-message"
+                );
               }
             }
           } catch (error: any) {
@@ -416,17 +470,21 @@ const useWidgetChat = create<Store>()(
             );
             // masih aneh
             if (!response.data?.error) {
-              set((state) => ({
-                message: [
-                  ...state.message,
-                  {
-                    message: message,
-                    from: "me",
-                    type: "location",
-                    time: moment().format("LLL"),
-                  },
-                ],
-              }));
+              set(
+                (state) => ({
+                  message: [
+                    ...state.message,
+                    {
+                      message: message,
+                      from: "me",
+                      type: "location",
+                      time: moment().format("LLL"),
+                    },
+                  ],
+                }),
+                false,
+                "widget-add-message"
+              );
               // INF_addMessage("out", null, message, "text", new Date());
             }
             // else {
@@ -438,7 +496,7 @@ const useWidgetChat = create<Store>()(
             } else {
               setError("Something wrong");
             }
-            set(() => ({ loading: false }));
+            set(() => ({ loading: false }), false, "widget-add-message-false");
           }
         },
 
@@ -449,7 +507,11 @@ const useWidgetChat = create<Store>()(
               token: INF_token,
             };
 
-            set(() => ({ chatOn: false, status: "Chat live berakhir" }));
+            set(
+              () => ({ chatOn: false, status: "Chat live berakhir" }),
+              false,
+              "widget-end-session"
+            );
             await http().post("/endSession", postData);
             if (import.meta.env.VITE_ACCOUNT_ID) {
               await http().post(
@@ -473,7 +535,11 @@ const useWidgetChat = create<Store>()(
         async endSessionBot() {
           const { INF_token, setError } = get();
           try {
-            set(() => ({ chatOn: false, status: "Chat live berakhir" }));
+            set(
+              () => ({ chatOn: false, status: "Chat live berakhir" }),
+              false,
+              "widget-end-session-bot"
+            );
 
             if (import.meta.env.VITE_ACCOUNT_ID) {
               await http().post(
@@ -509,13 +575,14 @@ const useWidgetChat = create<Store>()(
         },
 
         statusChat(value: any, chatOn: boolean) {
-          if (chatOn && value) set(() => ({ status: value, chatOn }));
-          if (chatOn) set(() => ({ chatOn }));
-          if (value) set(() => ({ status: value }));
+          if (chatOn && value)
+            set(() => ({ status: value, chatOn }), false, "widget-set-status");
+          if (chatOn) set(() => ({ chatOn }), false, "widget-set-status");
+          if (value) set(() => ({ status: value }), false, "widget-set-status");
         },
 
         reset() {
-          set(() => initialState);
+          set(() => initialState, false, "widget-reset-chat");
           localStorage.clear();
         },
       }),

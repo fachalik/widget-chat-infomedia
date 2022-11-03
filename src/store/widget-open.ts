@@ -22,7 +22,7 @@ const useWidgetOpen = create<Store>()(
       },
     }),
     {
-      name: "widget-store",
+      name: "widget-open",
     }
   )
 );
