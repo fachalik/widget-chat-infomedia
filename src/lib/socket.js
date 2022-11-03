@@ -15,14 +15,14 @@ const initializeSocket = (token, clearSession, statusChat, addChat) => {
     });
 
     socket.on("connect", () => {
-      console.log("Connected");
+      // console.log("Connected");
       socket.emit("authentication", {
         token: token,
       });
     });
 
     socket.on("unauthorized", (reason) => {
-      console.log("Unauthorized:", reason);
+      // console.log("Unauthorized:", reason);
       if (reason.message == "USER_NOT_FOUND") {
         // dispatch({ type: CLEAR_SESSION });
         clearSession();
@@ -49,21 +49,15 @@ const initializeSocket = (token, clearSession, statusChat, addChat) => {
       // });
     });
 
-    // socket.on("disconnect", (reason) => {
-    //   if (reason === "io server disconnect" || reason === "transport close") {
-    //     socket.connect();
-    //     console.log(`Disconnected: ${error || reason}`);
-    //   } else {
-    //     statusChat("You are disconnected");
-    //     // dispatch({
-    //     //   type: STATUS_CHAT,
-    //     //   payload: {
-    //     //     status: "You are disconnected",
-    //     //   },
-    //     // });
-    //     console.log(`Disconnected: ${error || reason}`);
-    //   }
-    // });
+    socket.on("disconnect", (reason) => {
+      if (reason === "io server disconnect" || reason === "transport close") {
+        socket.connect();
+        // console.log(`Disconnected: ${error || reason}`);
+      } else {
+        statusChat("You are disconnected");
+        // console.log(`Disconnected: ${error || reason}`);
+      }
+    });
 
     socket.on("agent:message:text", (data) => {
       if (data.messageType === "carousel") {
