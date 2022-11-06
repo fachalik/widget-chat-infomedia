@@ -2,24 +2,23 @@ import { Box } from "@mui/material";
 import React from "react";
 
 import BubbleChat from "../components/BubbleChat";
+import LoaderChat from "../components/LoaderChat";
 import WrapperChat from "../components/WrapperChat";
 import useWidgetChat from "../store/widget-chat";
 
 const Home = () => {
-  const { message } = useWidgetChat((state) => state);
-  const messageEndRef = React.useRef<any>(null);
+  const { message, scrollToBottom, showLoader } = useWidgetChat(
+    (state) => state
+  );
 
-  const scrollToButtom = () => {
-    messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  React.useEffect(() => {
-    scrollToButtom();
-  });
+  // React.useEffect(() => {
+  //   scrollToBottom();
+  // });
 
   return (
     <WrapperChat>
       <Box
+        id={"testing"}
         sx={{
           height: "82%",
           backgroundColor: "#e0e0e0",
@@ -37,7 +36,8 @@ const Home = () => {
             {...val}
           />
         ))}
-        <div className="wgChat-endmessage" ref={messageEndRef} />
+        {showLoader && <LoaderChat />}
+        <div id="wgChat-endmessage" />
       </Box>
     </WrapperChat>
   );

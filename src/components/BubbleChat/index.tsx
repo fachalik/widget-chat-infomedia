@@ -1,10 +1,13 @@
-import "./bubblechat.style.scss";
+import "./index.scss";
 
 import PersonPinCircle from "@mui/icons-material/PersonPinCircle";
-import { Box, Button, Paper } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import moment from "moment";
 import React, { FC } from "react";
-// import Carousel from "react-material-ui-carousel";
+
+import useWidgetChat from "../../store/widget-chat";
+import useWidgetStore from "../../store/widget-store";
+import Carousel from "../Carousel";
 
 // import ChatContex from "../../context/ChatContext";
 
@@ -17,9 +20,8 @@ interface IProps {
 }
 
 const BubbleChat: FC<IProps> = ({ type, from, message, time, fileName }) => {
-  // const context = React.useContext(ChatContex);
-  // const classes = useStyles();
-
+  const { sendMessageButton, endSessionBot } = useWidgetChat((state) => state);
+  const { color } = useWidgetStore((state) => state);
   const typeMessage = () => {
     switch (type) {
       case "image":
@@ -66,65 +68,7 @@ const BubbleChat: FC<IProps> = ({ type, from, message, time, fileName }) => {
           </a>
         );
       case "carousel":
-        return (
-          <>
-            <p>asd</p>
-          </>
-          // <Carousel
-          //   autoPlay={false}
-          //   navButtonsAlwaysVisible
-          //   indicators={false}
-          //   animation="slide"
-          //   stopAutoPlayOnHover
-          //   navButtonsProps={{
-          //     style: {
-          //       margin: 0,
-          //       height: "20px",
-          //       width: "20px",
-          //       opacity: "25%",
-          //     },
-          //   }}
-          //   navButtonsWrapperProps={{
-          //     style: {
-          //       margin: 0,
-          //     },
-          //   }}
-          // >
-          //   {message.map((val, index) => (
-          //     <Box
-          //       key={index}
-          //       width="200px"
-          //       display="flex"
-          //       flexDirection="column"
-          //     >
-          //       <Box width="100%" display="flex" justifyContent="center">
-          //         <img
-          //           src={val.picture}
-          //           alt={val.title}
-          //           style={{ width: "100%" }}
-          //         />
-          //       </Box>
-
-          //       <Box fontWeight="bold">{val.title}</Box>
-          //       <Box>{val.subtitle}</Box>
-          //       {val.menu?.map((res, i) => (
-          //         <Button
-          //           variant="contained"
-          //           color="primary"
-          //           key={i}
-          //           classes={{ root: classes.button }}
-          //           onClick={() => {
-          //             // context.sendMessageButton(val.value, "bot", val.label);
-          //             context.sendMessageCarousel(res.value, "bot", res.label);
-          //           }}
-          //         >
-          //           {res.label}
-          //         </Button>
-          //       ))}
-          //     </Box>
-          //   ))}
-          // </Carousel>
-        );
+        return <Carousel data={message} />;
       case "button":
         let htmlString = message?.title.replaceAll("\n", "<br />");
         const urlRegex =
@@ -160,11 +104,10 @@ const BubbleChat: FC<IProps> = ({ type, from, message, time, fileName }) => {
                   variant="contained"
                   key={index}
                   color="primary"
-                  // classes={{ root: classes.button }}
                   onClick={() => {
                     console.log(val.value);
-                    // if (val.value === "selesai") return context.endSessionBot();
-                    // context.sendMessageButton(val.value, "bot", val.label);
+                    if (val.value === "selesai") return endSessionBot();
+                    sendMessageButton(val.value, "bot", val.label);
                   }}
                 >
                   {val.label}
@@ -194,8 +137,8 @@ const BubbleChat: FC<IProps> = ({ type, from, message, time, fileName }) => {
                   // classes={{ root: classes.button }}
                   onClick={(e: any) => {
                     console.log(e.target.value);
-                    // if (e.value === "selesai") return context.endSessionBot();
-                    // context.sendMessageButton(val.value, "bot", val.label);
+                    if (e.value === "selesai") return endSessionBot();
+                    sendMessageButton(val.value, "bot", val.label);
                   }}
                 >
                   {val.label}
@@ -228,8 +171,11 @@ const BubbleChat: FC<IProps> = ({ type, from, message, time, fileName }) => {
   };
 
   return (
-    <div className={`wgchat-wrapper-bubblechat  ${from === "me" && "me"}`}>
-      <div className={`wgchat-profile-picture  ${from === "me" && "me"}`}>
+    <div
+      className={`wgchat-wrapper-bubblechat  ${from === "me" && "me"}`}
+      style={{ backgroundColor: color?.primary_color }}
+    >
+      {/* <div className={`wgchat-profile-picture  ${from === "me" && "me"}`}>
         {from === "me" ? (
           <PersonPinCircle />
         ) : (
@@ -240,14 +186,18 @@ const BubbleChat: FC<IProps> = ({ type, from, message, time, fileName }) => {
             height="22px"
           />
         )}
-      </div>
+      </div> */}
       <div
         className={`wgchat-bubblechat ${from === "me" && "me"}`}
+        style={{
+          // backgroundColor: color?.primary_color,
+          color: color?.primary_color,
+        }}
         // style={{ backgroundColor: from === "me" && BUBLLE_CHAT_COLOR }}
       >
         {typeMessage()}
       </div>
-      <div className="wgchat-text-time">
+      <div className={`wgchat-text-time ${from === "me" && "me"}`}>
         <span>{moment(time).format("HH:mm")}</span>
       </div>
     </div>

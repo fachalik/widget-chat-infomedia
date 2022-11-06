@@ -1,0 +1,83 @@
+.wgchat-wrapper-bubblechat {
+  display: flex;
+  width: 100%;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  // margin-right: auto;
+  // margin-left: 0;
+  &.me {
+    align-items: end;
+    justify-content: end;
+  }
+
+  .wgchat-bubblechat {
+    margin: 7px 15px 7px 7px;
+    padding: 15px 20px;
+    background-color: #ffff;
+    border-radius: 30px;
+    max-width: 75%;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.25);
+
+    // &.me {
+    //   // color: #fff;
+    //   // background-color: #d1222c;
+    //   padding: 10px;
+    //   border-radius: 15px 0px 15px 15px;
+    // }
+
+    p {
+      margin: 0;
+    }
+
+    span {
+      width: 100%;
+      display: inline-block;
+      text-align: end;
+      right: 0;
+      margin-right: 10px;
+      font-size: 9px;
+      color: #989b9f;
+      margin: 7px 0 auto 0;
+    }
+
+    img {
+      max-width: 90%;
+    }
+    .Carousel-buttonWrapper-45,
+    .MuiIconButton-label {
+      display: flex;
+      margin: 0;
+      color: #fff;
+
+      svg {
+        width: 25px;
+      }
+    }
+  }
+
+  .wgchat-text-time {
+    display: inline-block;
+    align-self: flex-start;
+    padding: 10px;
+    &.me {
+      align-self: flex-end;
+    }
+  }
+
+  .wgchat-profile-picture {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    min-width: 35px;
+    height: 35px;
+    border-radius: 100%;
+    margin: 0 5px;
+    background-color: #e3e3e3;
+    svg {
+      width: 20px;
+    }
+  }
+}

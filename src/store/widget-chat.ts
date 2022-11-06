@@ -6,6 +6,7 @@ import { devtools, persist } from "zustand/middleware";
 import general from "../lib/general";
 import http from "../lib/https";
 import socket from "../lib/socket";
+import { timeout } from "../lib/utilitys";
 
 type Store = {
   INF_token: string | null | any;
@@ -15,7 +16,10 @@ type Store = {
   status: string | null;
   error: string | null;
   postLoginToken: string | null;
+  showLoader: boolean;
+  firstTimeOpen: boolean;
 
+  intialGreatings: () => void;
   setPostLoginToken: (token: any) => void;
   createSession: (postData: any) => void;
   clearSession: () => void;
@@ -24,6 +28,7 @@ type Store = {
   setSession: (token: any) => void;
   sendMessage: (message: string, type: string, label: string) => void;
   sendMessageButton: (message: string, type: string, label: string) => void;
+  sendMessageCarousel: (message: string, type: string, label: string) => void;
   sendFiles: (files: any) => void;
   sendLocation: (message: string) => void;
   endSession: () => void;
@@ -32,17 +37,21 @@ type Store = {
   statusChat: (value: any, chatOn: boolean) => void;
   setError: (val: any) => void;
   addChat: (chat: any) => void;
+  scrollToBottom: () => void;
+  setShowLoader: (state: any) => void;
   reset: () => void;
 };
 
 const initialState = {
-  INF_token: null,
   loading: false,
-  message: [],
+  showLoader: false,
+  firstTimeOpen: false,
   chatOn: false,
-  status: "",
+  INF_token: null,
   error: null,
   postLoginToken: null,
+  message: [],
+  status: "",
 };
 
 const useWidgetChat = create<Store>()(
@@ -51,12 +60,23 @@ const useWidgetChat = create<Store>()(
       (set, get) => ({
         ...initialState,
 
+        setShowLoader(state: any) {
+          set(() => ({ showLoader: state }), false, `widget-loader-${state}`);
+        },
+
         setPostLoginToken(token: any) {
           set(() => ({ postLoginToken: token }));
         },
 
         async createSession(postData: any) {
-          const { setError, clearSession, statusChat, addChat } = get();
+          const {
+            setError,
+            clearSession,
+            statusChat,
+            addChat,
+            firstTimeOpen,
+            intialGreatings,
+          } = get();
           try {
             set(() => ({ loading: true }), false, "widget-loading-true");
 
@@ -76,6 +96,8 @@ const useWidgetChat = create<Store>()(
               );
             }
             set(() => ({ loading: false }), false, "widget-loading-false");
+            if (!firstTimeOpen) intialGreatings();
+            set(() => ({ firstTimeOpen: true }));
           } catch (error: any) {
             if (error.response?.data.message) {
               setError(error.response.data.message);
@@ -84,6 +106,19 @@ const useWidgetChat = create<Store>()(
             }
             set(() => ({ loading: false }), false, "widget-loading-false");
           }
+        },
+
+        async intialGreatings() {
+          const { addChat, setShowLoader } = get();
+          setShowLoader(true);
+          await timeout(2000);
+          setShowLoader(false);
+          addChat({
+            message: "ada yang bisa saya bantu?",
+            from: "bot",
+            type: "text",
+            time: moment().format("LLL"),
+          });
         },
 
         setSession(token: any) {
@@ -120,7 +155,13 @@ const useWidgetChat = create<Store>()(
         },
 
         async getHistoryChat(token: any) {
-          const { setError } = get();
+          const { setError, scrollToBottom, addChat } = get();
+          addChat({
+            message: "ada yang bisa saya bantu?",
+            from: "bot",
+            type: "text",
+            time: moment().format("LLL"),
+          });
           try {
             const postData = {
               token: token,
@@ -129,7 +170,6 @@ const useWidgetChat = create<Store>()(
               "/client/getChatHistory",
               postData
             );
-
             if (!response.data?.error && response.data.data) {
               response.data.data
                 ?.filter(
@@ -296,6 +336,7 @@ const useWidgetChat = create<Store>()(
             }
             set(() => ({ loading: false }), false, "widget-loading-false");
           }
+          scrollToBottom();
         },
 
         clearHistoryChat() {
@@ -303,6 +344,7 @@ const useWidgetChat = create<Store>()(
         },
 
         addChat(chat: any) {
+          const { scrollToBottom } = get();
           set(
             (state) => ({
               message: [...state.message, chat],
@@ -310,6 +352,7 @@ const useWidgetChat = create<Store>()(
             false,
             "widget-add-message"
           );
+          scrollToBottom();
         },
 
         async sendMessage(
@@ -317,7 +360,7 @@ const useWidgetChat = create<Store>()(
           type: string = "text",
           label: string = "success"
         ) {
-          const { INF_token, setError } = get();
+          const { INF_token, setError, scrollToBottom } = get();
           try {
             const postData = {
               message,
@@ -349,6 +392,7 @@ const useWidgetChat = create<Store>()(
             }
             set(() => ({ loading: false }), false, "widget-loading-false");
           }
+          scrollToBottom();
         },
 
         async sendMessageButton(
@@ -356,7 +400,7 @@ const useWidgetChat = create<Store>()(
           type: string = "text",
           label: string = "success"
         ) {
-          const { INF_token, setError } = get();
+          const { INF_token, setError, scrollToBottom } = get();
           try {
             const postData = {
               message,
@@ -382,11 +426,6 @@ const useWidgetChat = create<Store>()(
               postData
             );
             console.log(response);
-            // if (!response.data?.error) {
-            //   // INF_addMessage("out", null, message, "text", new Date());
-            // } else {
-            //   // INF_notifView(response.message, "warning");
-            // }
           } catch (error: any) {
             if (error.response?.data.message) {
               setError(error.response.data.message);
@@ -395,6 +434,49 @@ const useWidgetChat = create<Store>()(
             }
             set(() => ({ loading: false }), false, "widget-loading-false");
           }
+          scrollToBottom();
+        },
+
+        async sendMessageCarousel(
+          message: string,
+          type: string = "text",
+          label: string = "success"
+        ) {
+          const { INF_token, setError, scrollToBottom } = get();
+          try {
+            const postData = {
+              message,
+              token: INF_token,
+            };
+            set(
+              (state) => ({
+                message: [
+                  ...state.message,
+                  {
+                    message: type !== "bot" ? message : label,
+                    from: "me",
+                    type: "text",
+                    time: moment().format("LLL"),
+                  },
+                ],
+              }),
+              false,
+              "widget-add-message"
+            );
+            const response = await http().post(
+              "/client/reply/carousel",
+              postData
+            );
+            console.log(response);
+          } catch (error: any) {
+            if (error.response?.data.message) {
+              setError(error.response.data.message);
+            } else {
+              setError("Something wrong");
+            }
+            set(() => ({ loading: false }), false, "widget-loading-false");
+          }
+          scrollToBottom();
         },
 
         async sendFiles(files: any) {
@@ -584,6 +666,12 @@ const useWidgetChat = create<Store>()(
         reset() {
           set(() => initialState, false, "widget-reset-chat");
           localStorage.clear();
+        },
+
+        scrollToBottom() {
+          document
+            .getElementById("wgChat-endmessage")
+            ?.scrollIntoView({ behavior: "smooth" });
         },
       }),
       {

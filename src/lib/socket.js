@@ -1,5 +1,6 @@
 import io from "socket.io-client";
 import moment from "moment";
+import { timeout } from "./utilitys";
 
 // import general from "../utils/general";
 
@@ -59,16 +60,19 @@ const initializeSocket = (token, clearSession, statusChat, addChat) => {
       }
     });
 
-    socket.on("agent:message:text", (data) => {
+    socket.on("agent:message:text", async (data) => {
+      await console.log(data);
+      await timeout(1000);
+      await console.log("masok");
       if (data.messageType === "carousel") {
-        addChat({
+        await addChat({
           message: data.slider,
           from: "bot",
           type: data.messageType,
           time: moment().format("LLL"),
         });
       } else if (data.messageType === "button") {
-        addChat({
+        await addChat({
           message: data.menu,
           from: "bot",
           type: data.messageType,
@@ -76,7 +80,7 @@ const initializeSocket = (token, clearSession, statusChat, addChat) => {
           time: moment().format("LLL"),
         });
       } else {
-        addChat({
+        await addChat({
           message: data.message,
           from: data.from,
           type: "text",
@@ -86,8 +90,11 @@ const initializeSocket = (token, clearSession, statusChat, addChat) => {
       // general.INF_notifSound();
     });
 
-    socket.on("agent:message:carousel", (data) => {
-      addChat({
+    socket.on("agent:message:carousel", async (data) => {
+      await console.log(data);
+      await timeout(2000);
+      await console.log("masok");
+      await addChat({
         message: data.message.slider,
         from: "bot",
         type: data.message.messageType,
@@ -96,8 +103,10 @@ const initializeSocket = (token, clearSession, statusChat, addChat) => {
       // general.INF_notifSound();
     });
 
-    socket.on("agent:message:button", (data) => {
-      console.log("agent:message:button", data);
+    socket.on("agent:message:button", async (data) => {
+      await console.log("agent:message:button", data);
+      await timeout(1000);
+      await console.log("masok");
       addChat({
         message: data.message,
         from: "bot",
