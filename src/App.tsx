@@ -35,6 +35,8 @@ const App = () => {
     clearHistoryChat,
     addCountNotRead,
     resetCountNotRead,
+    loader,
+    reset,
   } = useWidgetChat((state) => state);
 
   const [isToggle, setIsToggle] = React.useState<boolean>(true);
@@ -81,7 +83,9 @@ const App = () => {
         statusChat,
         addChat,
         open,
-        addCountNotRead
+        addCountNotRead,
+        loader,
+        reset
       );
       setSession(INF_token);
       clearHistoryChat();

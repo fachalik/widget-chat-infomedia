@@ -10,7 +10,9 @@ const initializeSocket = (
   statusChat,
   addChat,
   open,
-  addCountNotRead
+  addCountNotRead,
+  loader,
+  reset
 ) => {
   try {
     const socketUrl = import.meta.env.VITE_API_URL;
@@ -34,6 +36,7 @@ const initializeSocket = (
       if (reason.message == "USER_NOT_FOUND") {
         // dispatch({ type: CLEAR_SESSION });
         clearSession();
+        reset();
       }
 
       if (reason.message == "ALREADY_LOGGED_IN") {
@@ -69,6 +72,7 @@ const initializeSocket = (
 
     socket.on("agent:message:text", async (data) => {
       if (open === false) addCountNotRead();
+      await loader();
       await console.log(data);
       // await timeout(1000);
       // await console.log("masok");
@@ -100,6 +104,7 @@ const initializeSocket = (
 
     socket.on("agent:message:carousel", async (data) => {
       if (open === false) addCountNotRead();
+      await loader();
       await console.log(data);
       // await timeout(2000);
       // await console.log("masok");
@@ -114,6 +119,7 @@ const initializeSocket = (
 
     socket.on("agent:message:button", async (data) => {
       if (open === false) addCountNotRead();
+      await loader();
       await console.log("agent:message:button", data);
       // await timeout(1000);
       // await console.log("masok");
@@ -127,8 +133,9 @@ const initializeSocket = (
       // general.INF_notifSound();
     });
 
-    socket.on("agent:message:media", (data) => {
+    socket.on("agent:message:media", async (data) => {
       if (open === false) addCountNotRead();
+      await loader();
       // console.log("agent:message:media", data);
       // general.INF_notifSound();
       let message;
@@ -136,7 +143,7 @@ const initializeSocket = (
       //   message = general.INF_convertAttachment(data.message);
       // }
       // console.log(data.message, message);
-      addChat({
+      await addChat({
         message: message?.message,
         from: data?.from,
         type: message?.type,

@@ -91,6 +91,8 @@ const useWidgetChat = create<Store>()(
             firstTimeOpen,
             intialGreatings,
             addCountNotRead,
+            loader,
+            reset,
           } = get();
           try {
             set(() => ({ loading: true }), false, "widget-loading-true");
@@ -105,7 +107,9 @@ const useWidgetChat = create<Store>()(
                 statusChat,
                 addChat,
                 useWidgetOpen.getState().open,
-                addCountNotRead
+                addCountNotRead,
+                loader,
+                reset
               );
               set(
                 () => ({
@@ -265,7 +269,7 @@ const useWidgetChat = create<Store>()(
                         val.messageType !== "text" &&
                         val.messageType !== "location" &&
                         val.messageType !== "carousel" &&
-                        val.messageType === "button"
+                        val.messageType !== "button"
                       ) {
                         const message = general.INF_convertAttachment(
                           val.message
@@ -278,7 +282,7 @@ const useWidgetChat = create<Store>()(
                               {
                                 message: message.message,
                                 from: val.from,
-                                type: message.type,
+                                type: message?.type,
                                 time: moment(val.dateSend).format("LLL"),
                                 mimeType: message?.mimeType,
                                 fileName: message?.fileName,
@@ -396,7 +400,7 @@ const useWidgetChat = create<Store>()(
           type: string = "text",
           label: string = "success"
         ) {
-          const { INF_token, setError, scrollToBottom, loader } = get();
+          const { INF_token, setError, scrollToBottom } = get();
           try {
             const postData = {
               message,
@@ -404,7 +408,7 @@ const useWidgetChat = create<Store>()(
             };
             const response = await http().post("/client/reply/text", postData);
             if (!response.data?.error) {
-              loader();
+              // loader();
               set(
                 (state) => ({
                   message: [
@@ -545,11 +549,11 @@ const useWidgetChat = create<Store>()(
               );
               if (!responseReplay.data.error) {
                 let message: any;
-                if (typeof responseReplay.data.message !== "undefined") {
-                  message = general.INF_convertAttachment(
-                    responseReplay.data.message
-                  );
-                }
+                // if (typeof responseReplay.data.message !== "undefined") {
+                //   message = general.INF_convertAttachment(
+                //     responseReplay.data.message
+                //   );
+                // }
                 set(
                   (state) => ({
                     message: [
