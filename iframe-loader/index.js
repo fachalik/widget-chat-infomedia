@@ -142,7 +142,7 @@ function widgetApi() {
       onHide: () => {},
     };
 
-    const widgetAddress = 'http://192.168.1.187:3000'
+    const widgetAddress = 'http://192.168.1.192:5173'
 
     iframe.addEventListener("load", () => {
       window.addEventListener("getWidgetApi", () => {

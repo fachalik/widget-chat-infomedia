@@ -140,7 +140,7 @@ const OnBoard = () => {
       <HeaderWithClose close onClick={() => setOpen()} />
       <Stack
         spacing={2}
-        sx={{ height: "70vh" }}
+        sx={{ height: "85%" }}
         justifyContent={"center"}
         alignItems={"center"}
       >
@@ -170,11 +170,13 @@ const OnBoard = () => {
         ) : (
           <Box
             alignItems="center"
+            justifyContent={"center"}
             margin="auto"
             padding="20px 10px"
             boxShadow="0px 4px 10px 0px #0000000D"
             border="1px solid #c4c4c4"
             borderRadius="8px"
+            width={"90%"}
           >
             <Typography sx={{ margin: 0 }}>
               Silakan isi formulir di bawah ini untuk memulai percakapan dengan
@@ -212,7 +214,7 @@ const OnBoard = () => {
                         type={val.type}
                         label={val.label}
                         onChange={handleChange}
-                        sx={{ width: "100%" }}
+                        sx={{ width: "100%", marginTop: "5px" }}
                         // value={values[val.name]}
                         // setFieldValue={setFieldValue}
                         // error={touched[val.name] && errors[val.name]}
