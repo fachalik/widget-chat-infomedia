@@ -269,7 +269,8 @@ const useWidgetChat = create<Store>()(
                         val.messageType !== "text" &&
                         val.messageType !== "location" &&
                         val.messageType !== "carousel" &&
-                        val.messageType !== "button"
+                        val.messageType !== "button" &&
+                        val.messageType !== "buttonList"
                       ) {
                         const message = general.INF_convertAttachment(
                           val.message
