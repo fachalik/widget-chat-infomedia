@@ -5,8 +5,6 @@
   flex-direction: column;
   align-items: start;
   justify-content: start;
-  // margin-right: auto;
-  // margin-left: 0;
   &.me {
     align-items: end;
     justify-content: end;
@@ -15,18 +13,13 @@
   .wgchat-bubblechat {
     margin: 7px 15px 7px 7px;
     padding: 15px 20px;
-    background-color: #ffff;
     border-radius: 30px;
     max-width: 75%;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.25);
 
-    // &.me {
-    //   // color: #fff;
-    //   // background-color: #d1222c;
-    //   padding: 10px;
-    //   border-radius: 15px 0px 15px 15px;
-    // }
-
+    &.me {
+      margin: 7px 7px 7px 15  px;
+    }
     p {
       margin: 0;
     }

@@ -4,7 +4,14 @@ import { timeout } from "./utilitys";
 
 // import general from "../utils/general";
 
-const initializeSocket = (token, clearSession, statusChat, addChat) => {
+const initializeSocket = (
+  token,
+  clearSession,
+  statusChat,
+  addChat,
+  open,
+  addCountNotRead
+) => {
   try {
     const socketUrl = import.meta.env.VITE_API_URL;
     const tenant = import.meta.env.VITE_TENANT;
@@ -61,9 +68,10 @@ const initializeSocket = (token, clearSession, statusChat, addChat) => {
     });
 
     socket.on("agent:message:text", async (data) => {
+      if (open === false) addCountNotRead();
       await console.log(data);
-      await timeout(1000);
-      await console.log("masok");
+      // await timeout(1000);
+      // await console.log("masok");
       if (data.messageType === "carousel") {
         await addChat({
           message: data.slider,
@@ -91,9 +99,10 @@ const initializeSocket = (token, clearSession, statusChat, addChat) => {
     });
 
     socket.on("agent:message:carousel", async (data) => {
+      if (open === false) addCountNotRead();
       await console.log(data);
-      await timeout(2000);
-      await console.log("masok");
+      // await timeout(2000);
+      // await console.log("masok");
       await addChat({
         message: data.message.slider,
         from: "bot",
@@ -104,9 +113,10 @@ const initializeSocket = (token, clearSession, statusChat, addChat) => {
     });
 
     socket.on("agent:message:button", async (data) => {
+      if (open === false) addCountNotRead();
       await console.log("agent:message:button", data);
-      await timeout(1000);
-      await console.log("masok");
+      // await timeout(1000);
+      // await console.log("masok");
       addChat({
         message: data.message,
         from: "bot",
@@ -118,6 +128,7 @@ const initializeSocket = (token, clearSession, statusChat, addChat) => {
     });
 
     socket.on("agent:message:media", (data) => {
+      if (open === false) addCountNotRead();
       // console.log("agent:message:media", data);
       // general.INF_notifSound();
       let message;

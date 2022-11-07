@@ -1,15 +1,20 @@
 import "./index.scss";
 
 import PersonPinCircle from "@mui/icons-material/PersonPinCircle";
-import { Box, Button } from "@mui/material";
+import {
+  Box,
+  Button,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+} from "@mui/material";
 import moment from "moment";
 import React, { FC } from "react";
 
 import useWidgetChat from "../../store/widget-chat";
 import useWidgetStore from "../../store/widget-store";
 import Carousel from "../Carousel";
-
-// import ChatContex from "../../context/ChatContext";
 
 interface IProps {
   type: string;
@@ -89,15 +94,29 @@ const BubbleChat: FC<IProps> = ({ type, from, message, time, fileName }) => {
                 marginBottom: "15px",
               }}
             >
-              {/* {message.title &&
-                title.map((val) => (
-                  <p style={{ margin: 0 }}>
-                    {val}
-                    <br />
-                  </p>
-                ))} */}
               <div dangerouslySetInnerHTML={{ __html: htmlString }} />
             </div>
+            <p>asd</p>
+            <List
+              sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
+              aria-label="contacts"
+            >
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemText primary="Chelsea Otakan" />
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemText inset primary="Eric Hoffman" />
+                </ListItemButton>
+              </ListItem>
+              <ListItem>
+                <ListItemButton>
+                  <ListItemText primary="Spam" />
+                </ListItemButton>
+              </ListItem>
+            </List>
             <Box display="flex" flexDirection="column">
               {message?.button?.map((val: any, index: number) => (
                 <Button
@@ -127,7 +146,21 @@ const BubbleChat: FC<IProps> = ({ type, from, message, time, fileName }) => {
                   <br />
                 </p>
               ))}
-
+            <List
+              sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
+              aria-label="contacts"
+            >
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemText primary="Chelsea Otakan" />
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemText inset primary="Eric Hoffman" />
+                </ListItemButton>
+              </ListItem>
+            </List>
             <Box display="flex" flexDirection="column">
               {message?.map((val: any, index: number) => (
                 <Button
@@ -190,15 +223,14 @@ const BubbleChat: FC<IProps> = ({ type, from, message, time, fileName }) => {
       <div
         className={`wgchat-bubblechat ${from === "me" && "me"}`}
         style={{
-          // backgroundColor: color?.primary_color,
-          color: color?.primary_color,
+          backgroundColor: from === "me" ? `#${color.primary_color}` : "white",
+          color: from === "me" ? "white" : "black",
         }}
-        // style={{ backgroundColor: from === "me" && BUBLLE_CHAT_COLOR }}
       >
         {typeMessage()}
       </div>
       <div className={`wgchat-text-time ${from === "me" && "me"}`}>
-        <span>{moment(time).format("HH:mm")}</span>
+        <span>{moment(time).format("HH:mm A")}</span>
       </div>
     </div>
   );

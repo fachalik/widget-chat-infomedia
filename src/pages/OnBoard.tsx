@@ -204,7 +204,7 @@ const OnBoard = () => {
                 isValid,
               }) => (
                 <Form>
-                  {field.map((val: any, index: number) => (
+                  {field.map((val, index: number) => (
                     <Box key={String(index)}>
                       <TextField
                         onBlur={handleBlur}
@@ -212,6 +212,7 @@ const OnBoard = () => {
                         type={val.type}
                         label={val.label}
                         onChange={handleChange}
+                        sx={{ width: "100%" }}
                         // value={values[val.name]}
                         // setFieldValue={setFieldValue}
                         // error={touched[val.name] && errors[val.name]}
@@ -224,6 +225,24 @@ const OnBoard = () => {
                         //   )
                         // }
                       />
+                      {val.name === "username" &&
+                        (errors.username && touched.username ? (
+                          <p style={{ fontSize: 14, color: "red" }}>
+                            {errors.username}
+                          </p>
+                        ) : null)}
+                      {val.name === "email" &&
+                        (errors.email && touched.email ? (
+                          <p style={{ fontSize: 14, color: "red" }}>
+                            {errors.email}
+                          </p>
+                        ) : null)}
+                      {val.name === "mobilePhone" &&
+                        (errors.mobilePhone && touched.mobilePhone ? (
+                          <p style={{ fontSize: 14, color: "red" }}>
+                            {errors.mobilePhone}
+                          </p>
+                        ) : null)}
                       <Box marginBottom={1} />
                     </Box>
                   ))}

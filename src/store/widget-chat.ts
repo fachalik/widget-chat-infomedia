@@ -7,6 +7,7 @@ import general from "../lib/general";
 import http from "../lib/https";
 import socket from "../lib/socket";
 import { timeout } from "../lib/utilitys";
+import useWidgetOpen from "./widget-open";
 
 type Store = {
   INF_token: string | null | any;
@@ -18,6 +19,7 @@ type Store = {
   postLoginToken: string | null;
   showLoader: boolean;
   firstTimeOpen: boolean;
+  countNotRead: number;
 
   intialGreatings: () => void;
   setPostLoginToken: (token: any) => void;
@@ -39,6 +41,9 @@ type Store = {
   addChat: (chat: any) => void;
   scrollToBottom: () => void;
   setShowLoader: (state: any) => void;
+  addCountNotRead: () => void;
+  resetCountNotRead: () => void;
+  loader: () => void;
   reset: () => void;
 };
 
@@ -52,6 +57,7 @@ const initialState = {
   postLoginToken: null,
   message: [],
   status: "",
+  countNotRead: 0,
 };
 
 const useWidgetChat = create<Store>()(
@@ -59,6 +65,14 @@ const useWidgetChat = create<Store>()(
     persist(
       (set, get) => ({
         ...initialState,
+
+        addCountNotRead() {
+          set((state: any) => ({ countNotRead: state.countNotRead + 1 }));
+        },
+
+        resetCountNotRead() {
+          set(() => ({ countNotRead: 0 }));
+        },
 
         setShowLoader(state: any) {
           set(() => ({ showLoader: state }), false, `widget-loader-${state}`);
@@ -76,6 +90,7 @@ const useWidgetChat = create<Store>()(
             addChat,
             firstTimeOpen,
             intialGreatings,
+            addCountNotRead,
           } = get();
           try {
             set(() => ({ loading: true }), false, "widget-loading-true");
@@ -84,7 +99,14 @@ const useWidgetChat = create<Store>()(
             if (!response.data?.error) {
               console.log(response.data?.session);
               // change code in socket with zustand
-              socket(response.data?.session, clearSession, statusChat, addChat);
+              socket(
+                response.data?.session,
+                clearSession,
+                statusChat,
+                addChat,
+                useWidgetOpen.getState().open,
+                addCountNotRead
+              );
               set(
                 () => ({
                   INF_token: response.data?.session,
@@ -121,6 +143,13 @@ const useWidgetChat = create<Store>()(
           });
         },
 
+        async loader() {
+          const { setShowLoader } = get();
+          setShowLoader(true);
+          await timeout(2000);
+          setShowLoader(false);
+        },
+
         setSession(token: any) {
           set(
             () => ({
@@ -155,7 +184,7 @@ const useWidgetChat = create<Store>()(
         },
 
         async getHistoryChat(token: any) {
-          const { setError, scrollToBottom, addChat } = get();
+          const { setError, scrollToBottom, addChat, loader } = get();
           addChat({
             message: "ada yang bisa saya bantu?",
             from: "bot",
@@ -194,6 +223,7 @@ const useWidgetChat = create<Store>()(
                         const message = general.INF_convertAttachment(
                           val.message
                         );
+                        loader();
                         set(
                           (state) => ({
                             message: [
@@ -212,6 +242,7 @@ const useWidgetChat = create<Store>()(
                           "widget-add-message"
                         );
                       } else {
+                        loader();
                         set(
                           (state) => ({
                             message: [
@@ -239,6 +270,7 @@ const useWidgetChat = create<Store>()(
                         const message = general.INF_convertAttachment(
                           val.message
                         );
+                        loader();
                         set(
                           (state) => ({
                             message: [
@@ -257,6 +289,7 @@ const useWidgetChat = create<Store>()(
                           "widget-add-message"
                         );
                       } else if (val.messageType === "carousel") {
+                        loader();
                         set(
                           (state) => ({
                             message: [
@@ -273,6 +306,7 @@ const useWidgetChat = create<Store>()(
                           "widget-add-message"
                         );
                       } else if (val.messageType === "button") {
+                        loader();
                         set(
                           (state) => ({
                             message: [
@@ -290,6 +324,7 @@ const useWidgetChat = create<Store>()(
                           "widget-add-message"
                         );
                       } else if (val.messageType === "buttonList") {
+                        loader();
                         set(
                           (state) => ({
                             message: [
@@ -307,6 +342,7 @@ const useWidgetChat = create<Store>()(
                           "widget-add-message"
                         );
                       } else {
+                        loader();
                         set(
                           (state) => ({
                             message: [
@@ -360,7 +396,7 @@ const useWidgetChat = create<Store>()(
           type: string = "text",
           label: string = "success"
         ) {
-          const { INF_token, setError, scrollToBottom } = get();
+          const { INF_token, setError, scrollToBottom, loader } = get();
           try {
             const postData = {
               message,
@@ -368,6 +404,7 @@ const useWidgetChat = create<Store>()(
             };
             const response = await http().post("/client/reply/text", postData);
             if (!response.data?.error) {
+              loader();
               set(
                 (state) => ({
                   message: [
@@ -400,12 +437,13 @@ const useWidgetChat = create<Store>()(
           type: string = "text",
           label: string = "success"
         ) {
-          const { INF_token, setError, scrollToBottom } = get();
+          const { INF_token, setError, scrollToBottom, loader } = get();
           try {
             const postData = {
               message,
               token: INF_token,
             };
+            loader();
             set(
               (state) => ({
                 message: [
@@ -442,12 +480,13 @@ const useWidgetChat = create<Store>()(
           type: string = "text",
           label: string = "success"
         ) {
-          const { INF_token, setError, scrollToBottom } = get();
+          const { INF_token, setError, scrollToBottom, loader } = get();
           try {
             const postData = {
               message,
               token: INF_token,
             };
+            loader();
             set(
               (state) => ({
                 message: [

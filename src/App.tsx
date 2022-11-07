@@ -1,3 +1,6 @@
+import Badge from "@mui/material/Badge";
+import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
 import React from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
@@ -30,12 +33,15 @@ const App = () => {
     statusChat,
     addChat,
     clearHistoryChat,
+    addCountNotRead,
+    resetCountNotRead,
   } = useWidgetChat((state) => state);
 
   const [isToggle, setIsToggle] = React.useState<boolean>(true);
 
   const handleChange = async () => {
     await setOpen();
+    await resetCountNotRead();
     await window.parent.postMessage(open ? "hide" : "show", "*");
   };
 
@@ -69,7 +75,14 @@ const App = () => {
   React.useEffect(() => {
     console.log(INF_token);
     if (INF_token) {
-      socket(INF_token, clearSession, statusChat, addChat);
+      socket(
+        INF_token,
+        clearSession,
+        statusChat,
+        addChat,
+        open,
+        addCountNotRead
+      );
       setSession(INF_token);
       clearHistoryChat();
       getHistoryChat(INF_token);
