@@ -24,6 +24,10 @@ const Home = () => {
           backgroundColor: "#e0e0e0",
           paddingX: "10px",
           overflow: "auto",
+          msOverflowStyle: "none" /* for Internet Explorer, Edge */,
+          scrollbarWidth: "none" /* for Firefox */,
+          overflowY: "scroll",
+          bottom: 0,
         }}
       >
         {message?.map((val: any, idx: number) => (

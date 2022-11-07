@@ -32,7 +32,7 @@ type Store = {
   sendMessageButton: (message: string, type: string, label: string) => void;
   sendMessageCarousel: (message: string, type: string, label: string) => void;
   sendFiles: (files: any) => void;
-  sendLocation: (message: string) => void;
+  sendLocation: (message: any) => void;
   endSession: () => void;
   endSessionBot: () => void;
   sendRating: (value: any) => void;
@@ -583,7 +583,7 @@ const useWidgetChat = create<Store>()(
           }
         },
 
-        async sendLocation(message: string) {
+        async sendLocation(message: any) {
           const { INF_token, setError } = get();
           try {
             const postData = {

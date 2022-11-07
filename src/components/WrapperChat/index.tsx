@@ -22,6 +22,7 @@ const WrapperChat: FC<IProps> = ({ children }) => {
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
+        backgroundColor: "#e0e0e0",
       }}
     >
       <HeaderWithClose option close onClick={() => setOpen()} />
