@@ -548,16 +548,16 @@ const useWidgetChat = create<Store>()(
                 "/client/reply/media",
                 postReplyData
               );
-              console.log(responseReplay)
+              console.log(responseReplay);
               if (!responseReplay.data.error) {
                 let message: any;
-                console.log(responseReplay)
+                console.log(responseReplay);
                 if (typeof responseReplay.data.message !== "undefined") {
                   message = general.INF_convertAttachment(
                     responseReplay.data.message
                   );
                 }
-                console.log(message)
+                console.log(message);
                 set(
                   (state) => ({
                     message: [
