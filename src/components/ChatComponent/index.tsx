@@ -115,15 +115,35 @@ const ChatComponent = () => {
         </Collapse>
         <Tooltip title="Attachment">
           <Box>
-            <Fab
+            {/* <Fab
               size="small"
               className="float_attach"
               onClick={() => {
                 onClickAttackment();
               }}
+            > */}
+            <div
+              onClick={() => onClickAttackment()}
+              className={css`
+                height: 100%;
+                text-decoration: none;
+                border: none;
+                background-color: white;
+                cursor: pointer;
+                color: red;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 90px;
+                width: 30px;
+                transition: 0.3s;
+                &:hover {
+                  color: grey;
+                }
+              `}
             >
               <AttachFileIcon />
-            </Fab>
+            </div>
           </Box>
         </Tooltip>
       </div>
