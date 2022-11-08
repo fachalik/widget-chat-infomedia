@@ -1,0 +1,318 @@
+{
+  "INF_token": "ade32f83-8127-415a-ad2b-fc69f78439e6",
+  "loading": false,
+  "message": [
+    {
+      "message": "a",
+      "from": "me",
+      "type": "text",
+      "time": "October 31, 2022 2:36 PM"
+    },
+    {
+      "message": "Hai, Kak \n\nSelamat datang di layanan chat interaktif Customer Care BNI Sekuritas.\n\nLayanan chatbot dapat diakses setiap hari 24 jam dan chat interaktif dengan agent dapat di akses mulai pukul 06:00 – 22:00 WIB . Apabila ada kendala lain, silakan hubungi customer care kami di 14016 😊",
+      "from": "Chatbot",
+      "type": "text",
+      "time": "October 31, 2022 2:36 PM"
+    },
+    {
+      "message": [
+        {
+          "title": "Rekening",
+          "subtitle": "Informasi mengenai Rekening",
+          "picture": "https://i.ibb.co/0ngcKp8/bni-securities-thumb.jpg",
+          "menu": [
+            {
+              "label": "Rekening",
+              "value": "rekening"
+            },
+            {
+              "label": "Aplikasi Bions",
+              "value": "aplikasi_bions"
+            }
+          ]
+        },
+        {
+          "title": "Lupa User",
+          "subtitle": "Detail Lupa Password & PIN",
+          "picture": "https://i.ibb.co/0ngcKp8/bni-securities-thumb.jpg",
+          "menu": [
+            {
+              "label": "Lupa Password/PIN",
+              "value": "lupa_password_pin"
+            },
+            {
+              "label": "Lupa User ID",
+              "value": "lupa_user_id"
+            }
+          ]
+        },
+        {
+          "title": "Permintaan",
+          "subtitle": "Detail terkait permintaan",
+          "picture": "https://i.ibb.co/0ngcKp8/bni-securities-thumb.jpg",
+          "menu": [
+            {
+              "label": "Req. Statement Account",
+              "value": "req_statment_account"
+            },
+            {
+              "label": "Req. Bukti Pajak",
+              "value": "req_bukti_pajak"
+            },
+            {
+              "label": "Request KTUR",
+              "value": "req_ktur"
+            }
+          ]
+        },
+        {
+          "title": "Ahli Waris",
+          "subtitle": "Pencarian Ahli Waris",
+          "picture": "https://i.ibb.co/0ngcKp8/bni-securities-thumb.jpg",
+          "menu": [
+            {
+              "label": "Pencairan Ahli Waris",
+              "value": "pencarian_ahli_waris"
+            }
+          ]
+        },
+        {
+          "title": "Live Chat Agent",
+          "subtitle": "Terhubung dengan Agent BNIS",
+          "picture": "https://i.ibb.co/L9062GL/icon-bnis.png",
+          "menu": [
+            {
+              "label": "Live Agent",
+              "value": "live_agent"
+            }
+          ]
+        }
+      ],
+      "from": "bot",
+      "type": "carousel",
+      "time": "October 31, 2022 2:36 PM"
+    },
+    {
+      "message": "a",
+      "from": "me",
+      "type": "text",
+      "time": "October 31, 2022 2:36 PM"
+    },
+    {
+      "message": "Hai, Kak \n\nSelamat datang di layanan chat interaktif Customer Care BNI Sekuritas.\n\nLayanan chatbot dapat diakses setiap hari 24 jam dan chat interaktif dengan agent dapat di akses mulai pukul 06:00 – 22:00 WIB . Apabila ada kendala lain, silakan hubungi customer care kami di 14016 😊",
+      "from": "Chatbot",
+      "type": "text",
+      "time": "October 31, 2022 2:36 PM"
+    },
+    {
+      "message": [
+        {
+          "title": "Rekening",
+          "subtitle": "Informasi mengenai Rekening",
+          "picture": "https://i.ibb.co/0ngcKp8/bni-securities-thumb.jpg",
+          "menu": [
+            {
+              "label": "Rekening",
+              "value": "rekening"
+            },
+            {
+              "label": "Aplikasi Bions",
+              "value": "aplikasi_bions"
+            }
+          ]
+        },
+        {
+          "title": "Lupa User",
+          "subtitle": "Detail Lupa Password & PIN",
+          "picture": "https://i.ibb.co/0ngcKp8/bni-securities-thumb.jpg",
+          "menu": [
+            {
+              "label": "Lupa Password/PIN",
+              "value": "lupa_password_pin"
+            },
+            {
+              "label": "Lupa User ID",
+              "value": "lupa_user_id"
+            }
+          ]
+        },
+        {
+          "title": "Permintaan",
+          "subtitle": "Detail terkait permintaan",
+          "picture": "https://i.ibb.co/0ngcKp8/bni-securities-thumb.jpg",
+          "menu": [
+            {
+              "label": "Req. Statement Account",
+              "value": "req_statment_account"
+            },
+            {
+              "label": "Req. Bukti Pajak",
+              "value": "req_bukti_pajak"
+            },
+            {
+              "label": "Request KTUR",
+              "value": "req_ktur"
+            }
+          ]
+        },
+        {
+          "title": "Ahli Waris",
+          "subtitle": "Pencarian Ahli Waris",
+          "picture": "https://i.ibb.co/0ngcKp8/bni-securities-thumb.jpg",
+          "menu": [
+            {
+              "label": "Pencairan Ahli Waris",
+              "value": "pencarian_ahli_waris"
+            }
+          ]
+        },
+        {
+          "title": "Live Chat Agent",
+          "subtitle": "Terhubung dengan Agent BNIS",
+          "picture": "https://i.ibb.co/L9062GL/icon-bnis.png",
+          "menu": [
+            {
+              "label": "Live Agent",
+              "value": "live_agent"
+            }
+          ]
+        }
+      ],
+      "from": "bot",
+      "type": "carousel",
+      "time": "October 31, 2022 2:36 PM"
+    },
+    {
+      "message": "Rekening",
+      "from": "me",
+      "type": "text",
+      "time": "October 31, 2022 2:37 PM"
+    },
+    {
+      "message": {
+        "title": "Silahkan pilih opsi menu sesuai informasi yang Anda butuhkan",
+        "button": [
+          {
+            "label": "Pembukaan Rekening",
+            "value": "Pembukaan Rekening"
+          },
+          {
+            "label": "Pengkinian Data",
+            "value": "Pengkinian Data"
+          },
+          {
+            "label": "Aktivasi Rekening",
+            "value": "Aktivasi Rekening"
+          },
+          {
+            "label": "Aktivasi Reksadana",
+            "value": "Aktivasi Reksadana"
+          }
+        ]
+      },
+      "from": "bot",
+      "type": "button",
+      "title": null,
+      "time": "October 31, 2022 2:37 PM"
+    },
+    {
+      "message": "Aplikasi Bions",
+      "from": "me",
+      "type": "text",
+      "time": "October 31, 2022 2:37 PM"
+    },
+    {
+      "message": "a",
+      "from": "me",
+      "type": "text",
+      "time": "October 31, 2022 2:37 PM"
+    },
+    {
+      "message": "Hai, Kak \n\nSelamat datang di layanan chat interaktif Customer Care BNI Sekuritas.\n\nLayanan chatbot dapat diakses setiap hari 24 jam dan chat interaktif dengan agent dapat di akses mulai pukul 06:00 – 22:00 WIB . Apabila ada kendala lain, silakan hubungi customer care kami di 14016 😊",
+      "from": "Chatbot",
+      "type": "text",
+      "time": "October 31, 2022 2:38 PM"
+    },
+    {
+      "message": [
+        {
+          "title": "Rekening",
+          "subtitle": "Informasi mengenai Rekening",
+          "picture": "https://i.ibb.co/0ngcKp8/bni-securities-thumb.jpg",
+          "menu": [
+            {
+              "label": "Rekening",
+              "value": "rekening"
+            },
+            {
+              "label": "Aplikasi Bions",
+              "value": "aplikasi_bions"
+            }
+          ]
+        },
+        {
+          "title": "Lupa User",
+          "subtitle": "Detail Lupa Password & PIN",
+          "picture": "https://i.ibb.co/0ngcKp8/bni-securities-thumb.jpg",
+          "menu": [
+            {
+              "label": "Lupa Password/PIN",
+              "value": "lupa_password_pin"
+            },
+            {
+              "label": "Lupa User ID",
+              "value": "lupa_user_id"
+            }
+          ]
+        },
+        {
+          "title": "Permintaan",
+          "subtitle": "Detail terkait permintaan",
+          "picture": "https://i.ibb.co/0ngcKp8/bni-securities-thumb.jpg",
+          "menu": [
+            {
+              "label": "Req. Statement Account",
+              "value": "req_statment_account"
+            },
+            {
+              "label": "Req. Bukti Pajak",
+              "value": "req_bukti_pajak"
+            },
+            {
+              "label": "Request KTUR",
+              "value": "req_ktur"
+            }
+          ]
+        },
+        {
+          "title": "Ahli Waris",
+          "subtitle": "Pencarian Ahli Waris",
+          "picture": "https://i.ibb.co/0ngcKp8/bni-securities-thumb.jpg",
+          "menu": [
+            {
+              "label": "Pencairan Ahli Waris",
+              "value": "pencarian_ahli_waris"
+            }
+          ]
+        },
+        {
+          "title": "Live Chat Agent",
+          "subtitle": "Terhubung dengan Agent BNIS",
+          "picture": "https://i.ibb.co/L9062GL/icon-bnis.png",
+          "menu": [
+            {
+              "label": "Live Agent",
+              "value": "live_agent"
+            }
+          ]
+        }
+      ],
+      "from": "bot",
+      "type": "carousel",
+      "time": "October 31, 2022 2:38 PM"
+    }
+  ],
+  "chatOn": true,
+  "status": "You are connected",
+  "error": null
+}

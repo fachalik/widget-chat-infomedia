@@ -1,0 +1,104 @@
+.wgChat-messageinput {
+  // z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // padding: 12px 20px 12px 0px;
+  margin-top: 5px;
+  // border: solid 1px #dfdada;
+  // border-radius: 0 px 0 0px;
+  // background-color: #ffffff;
+  // box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  font-size: 12px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+
+  input[type="file"] {
+    display: none;
+  }
+  button {
+    cursor: pointer;
+    display: flex;
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    outline: none;
+  }
+
+  svg {
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    fill: #505050;
+    -moz-transition: all 0.2s ease-in;
+    -o-transition: all 0.2s ease-in;
+    -webkit-transition: all 0.2s ease-in;
+    transition: all 0.2s ease-in;
+
+    &:hover {
+      fill: #505050;
+    }
+  }
+
+  form {
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    .button-sendchat {
+      cursor: pointer;
+      border: none;
+      background-color: transparent;
+      width: auto;
+      svg {
+        width: 20px;
+        height: 20px;
+        fill: #505050;
+        -webkit-transform: rotate(40deg);
+        transform: rotate(40deg);
+      }
+    }
+    .input-sendchat {
+      color: #262626;
+      background: transparent;
+      border: none;
+      outline: none;
+      flex-grow: 1;
+    }
+  }
+
+  .attach-sendchat {
+    // position: absolute;
+    top: 100px;
+    // padding: 15px;
+    // margin-right: 9px;
+    border-radius: 20px;
+    transition: width 0.5s;
+    min-width: 30px;
+
+    .float_green_btn {
+      background-color: #cccccc;
+      color: white !important;
+    }
+    .float_yellow_btn {
+      background-color: #cccccc !important;
+      color: white !important;
+    }
+    .float_attach {
+      fill: #505050 !important;
+      font-size: 20px !important;
+      box-shadow: none;
+      background-color: #767676 !important;
+      background-color: transparent !important;
+    }
+  }
+}
+
+.wgChat-emojipicker {
+  width: 100%;
+  position: absolute;
+  z-index: 2;
+  bottom: 75px;
+  box-shadow: none;
+}

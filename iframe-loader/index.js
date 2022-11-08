@@ -73,13 +73,13 @@ function widgetApi() {
     const widgetStyle = widget.style;
     widgetStyle.display = "none";
     widgetStyle.boxSizing = "border-box";
-    widgetStyle.width = "80px";
-    widgetStyle.height = "80px";
-    // widgetStyle.width = "350px";
-    // widgetStyle.height = "500px";
-    widgetStyle.position = "absolute";
-    widgetStyle.bottom = "40px";
-    widgetStyle.right = "40px";
+    
+    widgetStyle.width = "400px";
+    widgetStyle.height = "250px";
+    widgetStyle.position = "fixed";
+    widgetStyle.bottom = "5px";
+    widgetStyle.right = "10px";
+    widgetStyle.borderRadius = "15px";
 
     const iframe = document.createElement("iframe");
 
@@ -109,13 +109,28 @@ function widgetApi() {
       },
 
       show: () => {
-        widgetStyle.width = "350px";
-        widgetStyle.height = "500px";
+        if (
+          navigator.userAgent.match(/Android/i) ||
+          navigator.userAgent.match(/iPhone/i)
+        ) {
+          widgetStyle.width = "100%";
+          widgetStyle.height = "100%";
+          widgetStyle.bottom = "0px";
+          widgetStyle.right = "0px";
+        }else{
+          widgetStyle.width = "400px";
+          widgetStyle.height = "calc(100% - 100px)"; 
+        }
+        // widgetStyle.boxShadow = "-1px 0px 11px -2px rgba(0,0,0,0.81)";
+        // widgetStyle.borderRadius = "15px";
+ 
       },
 
       hide: () => {
-        widgetStyle.width = "80px";
+        widgetStyle.width = "400px";
         widgetStyle.height = "80px";
+        widgetStyle.borderRadius = "15px";
+        // widgetStyle.boxShadow = "";
         // widget.style.display = "none";
       },
 
@@ -127,6 +142,8 @@ function widgetApi() {
       onHide: () => {},
     };
 
+    const widgetAddress = 'http://192.168.1.192:5173'
+
     iframe.addEventListener("load", () => {
       window.addEventListener("getWidgetApi", () => {
         const event = new CustomEvent("widgetApi", { detail: api });
@@ -134,15 +151,16 @@ function widgetApi() {
       });
 
       window.addEventListener("message", (evt) => {
-        console.log("MainColor", MainColor);
-        console.log("loader", evt);
+        // console.log("MainColor", MainColor);
+        // console.log("loader", evt);
 
-        if (evt.origin !== "http://localhost:5173") {
+        if (evt.origin !== widgetAddress) {
           return;
         }
         if (evt.data === "hide") {
           api.hide();
           api.onHide();
+          console.log('hit')
         }
         if (evt.data === "show") {
           api.show();
@@ -150,12 +168,17 @@ function widgetApi() {
         }
       });
 
-      // iframe.contentWindow.postMessage({ greeting }, "http://localhost:5173/");
+      iframe.contentWindow.postMessage({ greeting:'test' }, widgetAddress);
       widgetStyle.display = "block";
     });
 
     const license = script.getAttribute("data-license");
-    const widgetUrl = `http://localhost:5173/?license=${license}`;
+    const PRIMARY_COLOR = "EB1C24"
+    const SECONDARY_COLOR="929497"
+    const logo = "https://www.infomedia.co.id/chat/assets/img/header_logo.png"
+    const postLoginToken = null
+    // const widgetUrl = `${widgetAddress}/?license=${license}&primaryColor=${PRIMARY_COLOR}&secondarColor=${SECONDARY_COLOR}`;
+ const widgetUrl = `${widgetAddress}/?license=${license}&primaryColor=${PRIMARY_COLOR}&secondaryColor=${SECONDARY_COLOR}&logo=${logo}&postLoginToken=${postLoginToken}`;
 
     iframe.src = widgetUrl;
 

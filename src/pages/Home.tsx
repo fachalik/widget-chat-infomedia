@@ -1,38 +1,49 @@
-import Box from "@mui/material/Box";
+import { Box } from "@mui/material";
 import React from "react";
 
-import useOpen from "../store/widget-open";
+import BubbleChat from "../components/BubbleChat";
+import LoaderChat from "../components/LoaderChat";
+import WrapperChat from "../components/WrapperChat";
+import useWidgetChat from "../store/widget-chat";
 
 const Home = () => {
-  const { open, setOpen } = useOpen((state) => state);
-  React.useEffect(() => {
-    window.addEventListener("message", (e) => console.log(e));
-  }, []);
+  const { message, scrollToBottom, showLoader } = useWidgetChat(
+    (state) => state
+  );
 
-  const hide = () => {
-    console.log("function hide");
-    window.parent.postMessage("hide", "*");
-  };
+  // React.useEffect(() => {
+  //   scrollToBottom();
+  // });
+
   return (
-    <Box
-      position="absolute"
-      top="0"
-      right="0"
-      height="100%"
-      width="100%"
-      bgcolor="red"
-      sx={{
-        transform: `translateX(${open ? 0 : 100}%) translateY(${
-          open ? 0 : 100
-        }%) translateZ(0px)`,
-        opacity: open ? "100%" : "0%",
-        transition: "all 200ms ease-in-out",
-      }}
-      // onClick={}
-    >
-      <button onClick={() => setOpen()}>close</button>
-      {/* <div onClick={() => setOpen()}>close</div> */}
-    </Box>
+    <WrapperChat>
+      <Box
+        id={"testing"}
+        sx={{
+          height: "82%",
+          backgroundColor: "#e0e0e0",
+          paddingX: "10px",
+          overflow: "auto",
+          msOverflowStyle: "none" /* for Internet Explorer, Edge */,
+          scrollbarWidth: "none" /* for Firefox */,
+          overflowY: "scroll",
+          bottom: 0,
+        }}
+      >
+        {message?.map((val: any, idx: number) => (
+          <BubbleChat
+            key={idx}
+            message={val.message}
+            from={val.from}
+            type={val.type}
+            time={val.time}
+            {...val}
+          />
+        ))}
+        {showLoader && <LoaderChat />}
+        <div id="wgChat-endmessage" />
+      </Box>
+    </WrapperChat>
   );
 };
 

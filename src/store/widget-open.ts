@@ -1,25 +1,30 @@
+/* eslint-disable no-unused-vars */
 import create from "zustand";
 import { devtools, persist } from "zustand/middleware";
 
 type Store = {
   open: boolean;
+
   setOpen: () => void;
 };
 
-const useOpen = create<Store>()(
+const initialState = {
+  open: false,
+};
+
+const useWidgetOpen = create<Store>()(
   devtools(
-    persist(
-      (set) => ({
-        open: false,
-        setOpen() {
-          set((state) => ({ open: !state.open }), false, "widget-open");
-        },
-      }),
-      {
-        name: "widget-open",
-      }
-    )
+    (set) => ({
+      ...initialState,
+      // setOpen chat widget
+      setOpen() {
+        set((state) => ({ open: !state.open }), false, "widget-open");
+      },
+    }),
+    {
+      name: "widget-open",
+    }
   )
 );
 
-export default useOpen;
+export default useWidgetOpen;
