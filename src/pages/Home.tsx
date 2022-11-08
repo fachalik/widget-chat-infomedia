@@ -11,10 +11,6 @@ const Home = () => {
     (state) => state
   );
 
-  // React.useEffect(() => {
-  //   scrollToBottom();
-  // });
-
   return (
     <WrapperChat>
       <Box
@@ -23,6 +19,7 @@ const Home = () => {
           height: "82%",
           backgroundColor: "#e0e0e0",
           paddingX: "10px",
+          paddingY: "15px",
           overflow: "auto",
           msOverflowStyle: "none" /* for Internet Explorer, Edge */,
           scrollbarWidth: "none" /* for Firefox */,
