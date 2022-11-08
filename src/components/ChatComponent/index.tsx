@@ -219,7 +219,7 @@ const ChatComponent = () => {
               placeholder="Ketik disini..."
               value={value}
               onChange={(e) => setValue(e.target.value)}
-              maxRows={5}
+              maxRows={3}
               sx={{ width: "90%" }}
               onKeyDown={onEnterPress}
             />
