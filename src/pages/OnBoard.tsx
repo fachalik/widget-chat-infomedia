@@ -2,9 +2,6 @@ import {
   Alert,
   Box,
   Button,
-  Card,
-  CardContent,
-  Checkbox,
   CircularProgress,
   Container,
   Snackbar,
@@ -39,7 +36,7 @@ const OnBoard = () => {
   const [openSnackBar, setOpenSnackBar] = React.useState<boolean>(false);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
-  const [initialValues, setInitialValues] = React.useState<TForm>({
+  const [initialValues] = React.useState<TForm>({
     email: "",
     username: "",
     mobilePhone: "",
@@ -196,15 +193,7 @@ const OnBoard = () => {
                 createSession(post);
               }}
             >
-              {({
-                errors,
-                touched,
-                values,
-                handleChange,
-                setFieldValue,
-                handleBlur,
-                isValid,
-              }) => (
+              {({ errors, touched, handleChange, handleBlur, isValid }) => (
                 <Form>
                   {field.map((val, index: number) => (
                     <Box key={String(index)}>
