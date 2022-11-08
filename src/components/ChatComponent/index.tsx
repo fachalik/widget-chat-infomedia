@@ -101,15 +101,7 @@ const ChatComponent = () => {
     ];
 
     return (
-      <div
-        role="presentation"
-        style={{
-          left: "10px",
-          bottom: "18px",
-          zIndex: "5",
-          position: "absolute",
-        }}
-      >
+      <div role="presentation" className="attachment-presentation">
         <Collapse in={open}>
           {data.map((val: any, key: number) => (
             <Box marginRight={1} marginBottom={1} key={key}>
