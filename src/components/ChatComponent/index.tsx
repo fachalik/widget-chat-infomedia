@@ -223,7 +223,7 @@ const ChatComponent = () => {
               sx={{ width: "90%" }}
               onKeyDown={onEnterPress}
             />
-
+            {/* <Fab size="small"> */}
             <button
               type="submit"
               onClick={() => handleSendChat(value)}
@@ -231,14 +231,14 @@ const ChatComponent = () => {
                 height: 100%;
                 text-decoration: none;
                 border: none;
-                background-color: white;
+                background-color: transparent;
                 cursor: pointer;
                 color: red;
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 border-radius: 90px;
-                width: 30px;
+                // width: 30px;
                 transition: 0.3s;
                 &:hover {
                   color: grey;
@@ -249,6 +249,7 @@ const ChatComponent = () => {
                 <SendIcon fontSize="small" />
               </Tooltip>
             </button>
+            {/* </Fab> */}
           </form>
 
           {/* <Tooltip title="Attach file">

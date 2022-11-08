@@ -59,13 +59,6 @@
         transform: rotate(40deg);
       }
     }
-    .input-sendchat {
-      color: #262626;
-      background: transparent;
-      border: none;
-      outline: none;
-      flex-grow: 1;
-    }
   }
 
   .attach-sendchat {
@@ -93,6 +86,14 @@
       background-color: transparent !important;
     }
   }
+}
+
+.input-sendchat {
+  color: #262626;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  flex-grow: 1;
 }
 
 .wgChat-emojipicker {
