@@ -99,6 +99,13 @@
   width: 100%;
   position: absolute;
   z-index: 2;
-  bottom: 75px;
+  bottom: calc(100vh - 91vh);
   box-shadow: none;
+}
+
+.attachment-presentation {
+  left: 10px;
+  bottom: 18px;
+  z-index: 5;
+  position: absolute;
 }

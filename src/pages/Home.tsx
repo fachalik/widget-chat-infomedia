@@ -26,7 +26,7 @@ const Home = () => {
           overflow: "auto",
           msOverflowStyle: "none" /* for Internet Explorer, Edge */,
           scrollbarWidth: "none" /* for Firefox */,
-          overflowY: "scroll",
+          overflowY: "auto",
           bottom: 0,
         }}
       >

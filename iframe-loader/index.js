@@ -142,7 +142,7 @@ function widgetApi() {
       onHide: () => {},
     };
 
-    const widgetAddress = 'http://192.168.1.192:5173'
+    const widgetAddress = 'https://widget-chat-infomedia.vercel.app'
 
     iframe.addEventListener("load", () => {
       window.addEventListener("getWidgetApi", () => {
@@ -181,6 +181,7 @@ function widgetApi() {
  const widgetUrl = `${widgetAddress}/?license=${license}&primaryColor=${PRIMARY_COLOR}&secondaryColor=${SECONDARY_COLOR}&logo=${logo}&postLoginToken=${postLoginToken}`;
 
     iframe.src = widgetUrl;
+    iframe.allow  = "geolocation";
 
     document.body.appendChild(widget);
   };

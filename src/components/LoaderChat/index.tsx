@@ -7,6 +7,7 @@ function LoaderChat() {
   return (
     <Box
       sx={{
+        marginLeft: "5px",
         height: "50px",
         marginY: "10px",
         width: "80px",
