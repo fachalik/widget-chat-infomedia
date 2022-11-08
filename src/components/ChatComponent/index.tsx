@@ -103,15 +103,17 @@ const ChatComponent = () => {
     return (
       <div role="presentation" className="attachment-presentation">
         <Collapse in={open}>
-          {data.map((val: any, key: number) => (
-            <Box marginRight={1} marginBottom={1} key={key}>
-              <Tooltip title={val.name} onClick={val.onClick}>
-                <Fab size="small" className={`float_btn ${val.bg}`}>
-                  {val.icon}
-                </Fab>
-              </Tooltip>
-            </Box>
-          ))}
+          <Box marginBottom={3}>
+            {data.map((val: any, key: number) => (
+              <Box marginRight={1} marginBottom={1} key={key}>
+                <Tooltip title={val.name} onClick={val.onClick}>
+                  <Fab size="small" className={`float_btn ${val.bg}`}>
+                    {val.icon}
+                  </Fab>
+                </Tooltip>
+              </Box>
+            ))}
+          </Box>
         </Collapse>
         <Tooltip title="Attachment">
           <Box>
