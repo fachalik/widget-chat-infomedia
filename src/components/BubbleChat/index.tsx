@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/iframe-has-title */
 import "./index.scss";
 
 import PersonPinCircle from "@mui/icons-material/PersonPinCircle";
@@ -33,7 +34,17 @@ const BubbleChat: FC<IProps> = ({ type, from, message, time, fileName }) => {
         if (message?.url) {
           message = message.url;
         }
-        return <img src={message} alt="chat-img" />;
+        return (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <img className="chat-img" src={message} alt="chat-img" />
+          </Box>
+        );
       case "video":
         return (
           <video controls>
@@ -52,11 +63,7 @@ const BubbleChat: FC<IProps> = ({ type, from, message, time, fileName }) => {
         return (
           <>
             <iframe
-              // width="190px"
-              // height="120px"
-              // scrolling="no"
-              // marginheight="0"
-              // marginwidth="0"
+              style={{ width: "280px", height: "190px" }}
               src={`https://maps.google.com/maps?q=${message.latitude},${message.longitude}&output=embed`}
             ></iframe>
           </>
@@ -221,9 +228,24 @@ const BubbleChat: FC<IProps> = ({ type, from, message, time, fileName }) => {
         )}
       </div> */}
       <div
-        className={`wgchat-bubblechat ${from === "me" && "me"}`}
+        className={`${
+          type !== "image" &&
+          type !== "video" &&
+          type !== "audio" &&
+          type !== "location" &&
+          "wgchat-bubblechat"
+        } ${from === "me" && "me"}`}
         style={{
-          backgroundColor: from === "me" ? `#${color.primary_color}` : "white",
+          backgroundColor:
+            type !== "image" &&
+            type !== "video" &&
+            type !== "audio" &&
+            type !== "location"
+              ? from === "me"
+                ? `#${color.primary_color}`
+                : "white"
+              : "transparent",
+
           color: from === "me" ? "white" : "black",
         }}
       >
