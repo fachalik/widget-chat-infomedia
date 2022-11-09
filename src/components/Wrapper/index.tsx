@@ -26,6 +26,7 @@ const index: FC<IProps> = ({ open, children }) => {
         webkitBoxShadow: "1px 2px 9px 1px rgba(0,0,0,0.75)",
         mozBoxShadow: "1px 2px 9px 1px rgba(0,0,0,0.75)",
         overflow: "hidden",
+        backgroundColor: "white",
       }}
     >
       {children}
