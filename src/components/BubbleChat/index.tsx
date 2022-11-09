@@ -1,14 +1,7 @@
+/* eslint-disable jsx-a11y/iframe-has-title */
 import "./index.scss";
 
-import PersonPinCircle from "@mui/icons-material/PersonPinCircle";
-import {
-  Box,
-  Button,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-} from "@mui/material";
+import { Box, Button } from "@mui/material";
 import moment from "moment";
 import React, { FC } from "react";
 
@@ -33,7 +26,17 @@ const BubbleChat: FC<IProps> = ({ type, from, message, time, fileName }) => {
         if (message?.url) {
           message = message.url;
         }
-        return <img src={message} alt="chat-img" />;
+        return (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <img className="chat-img" src={message} alt="chat-img" />
+          </Box>
+        );
       case "video":
         return (
           <video controls>
@@ -52,11 +55,7 @@ const BubbleChat: FC<IProps> = ({ type, from, message, time, fileName }) => {
         return (
           <>
             <iframe
-              // width="190px"
-              // height="120px"
-              // scrolling="no"
-              // marginheight="0"
-              // marginwidth="0"
+              style={{ width: "280px", height: "190px" }}
               src={`https://maps.google.com/maps?q=${message.latitude},${message.longitude}&output=embed`}
             ></iframe>
           </>
@@ -96,33 +95,13 @@ const BubbleChat: FC<IProps> = ({ type, from, message, time, fileName }) => {
             >
               <div dangerouslySetInnerHTML={{ __html: htmlString }} />
             </div>
-            <p>asd</p>
-            <List
-              sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
-              aria-label="contacts"
-            >
-              <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemText primary="Chelsea Otakan" />
-                </ListItemButton>
-              </ListItem>
-              <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemText inset primary="Eric Hoffman" />
-                </ListItemButton>
-              </ListItem>
-              <ListItem>
-                <ListItemButton>
-                  <ListItemText primary="Spam" />
-                </ListItemButton>
-              </ListItem>
-            </List>
             <Box display="flex" flexDirection="column">
               {message?.button?.map((val: any, index: number) => (
                 <Button
-                  variant="contained"
+                  variant="outlined"
                   key={index}
                   color="primary"
+                  sx={{ marginBottom: "5px", width: "100%" }}
                   onClick={() => {
                     console.log(val.value);
                     if (val.value === "selesai") return endSessionBot();
@@ -146,21 +125,6 @@ const BubbleChat: FC<IProps> = ({ type, from, message, time, fileName }) => {
                   <br />
                 </p>
               ))}
-            <List
-              sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
-              aria-label="contacts"
-            >
-              <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemText primary="Chelsea Otakan" />
-                </ListItemButton>
-              </ListItem>
-              <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemText inset primary="Eric Hoffman" />
-                </ListItemButton>
-              </ListItem>
-            </List>
             <Box display="flex" flexDirection="column">
               {message?.map((val: any, index: number) => (
                 <Button
@@ -208,22 +172,25 @@ const BubbleChat: FC<IProps> = ({ type, from, message, time, fileName }) => {
       className={`wgchat-wrapper-bubblechat  ${from === "me" && "me"}`}
       style={{ backgroundColor: color?.primary_color }}
     >
-      {/* <div className={`wgchat-profile-picture  ${from === "me" && "me"}`}>
-        {from === "me" ? (
-          <PersonPinCircle />
-        ) : (
-          <img
-            src="https://i.ibb.co/cFGW2DW/customer-service-agent.png"
-            alt="admin"
-            width="22px"
-            height="22px"
-          />
-        )}
-      </div> */}
       <div
-        className={`wgchat-bubblechat ${from === "me" && "me"}`}
+        className={`${
+          type !== "image" &&
+          type !== "video" &&
+          type !== "audio" &&
+          type !== "location" &&
+          "wgchat-bubblechat"
+        } ${from === "me" && "me"}`}
         style={{
-          backgroundColor: from === "me" ? `#${color.primary_color}` : "white",
+          backgroundColor:
+            type !== "image" &&
+            type !== "video" &&
+            type !== "audio" &&
+            type !== "location"
+              ? from === "me"
+                ? `#${color.primary_color}`
+                : "white"
+              : "transparent",
+
           color: from === "me" ? "white" : "black",
         }}
       >
@@ -237,23 +204,3 @@ const BubbleChat: FC<IProps> = ({ type, from, message, time, fileName }) => {
 };
 
 export default BubbleChat;
-
-// const useStyles = makeStyles((theme) => ({
-//   button: {
-//     width: "100%",
-//     margin: "5px 0",
-//     borderRadius: "15px",
-//     backgroundColor: PRIMARY_COLOR,
-//     "&:hover": {
-//       backgroundColor: PRIMARY_COLOR,
-//     },
-//     "& .MuiButton-label": {
-//       textAlign: "center !important",
-//       color: "#fff !important",
-//       margin: "0px !important",
-//     },
-//     "& .MuiTouchRipple-root": {
-//       margin: "0px !important",
-//     },
-//   },
-// }));

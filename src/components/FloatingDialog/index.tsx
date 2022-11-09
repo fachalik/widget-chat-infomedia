@@ -35,6 +35,7 @@ const FloatingDialog: FC<IProps> = ({ open, onClick }) => {
           transform: `scale(${open ? 1 : 0})`,
           opacity: open ? "100%" : "0%",
           transition: "all 200ms ease-in-out",
+          backgroundColor: "white",
         }}
       >
         Hi!

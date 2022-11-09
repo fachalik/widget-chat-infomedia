@@ -80,6 +80,7 @@ function widgetApi() {
     widgetStyle.bottom = "5px";
     widgetStyle.right = "10px";
     widgetStyle.borderRadius = "15px";
+    widgetStyle.zIndex = 99;
 
     const iframe = document.createElement("iframe");
 
@@ -182,7 +183,6 @@ function widgetApi() {
 
     iframe.src = widgetUrl;
     iframe.allow  = "geolocation";
-
     document.body.appendChild(widget);
   };
 

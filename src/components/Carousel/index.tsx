@@ -2,11 +2,6 @@ import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
 import MobileStepper from "@mui/material/MobileStepper";
 import Paper from "@mui/material/Paper";
 import { useTheme } from "@mui/material/styles";
@@ -98,41 +93,20 @@ const Carousel: FC<IProps> = ({ data }) => {
           {data[activeStep].subtitle}
         </Typography>
       </Paper>
-      <Box>
-        <List>
-          {data[activeStep].menu?.map((res: any, idx: number) => (
-            <ListItem disablePadding>
-              <ListItemButton
-                onClick={() => {
-                  sendMessageCarousel(res.value, "bot", res.label);
-                  // context.sendMessageButton(val.value, "bot", val.label);
-                  // context.sendMessageCarousel(res.value, "bot", res.label);
-                }}
-              >
-                <ListItemText
-                  primaryTypographyProps={{
-                    fontSize: 24,
-                    fontWeight: "bold",
-                    color: "black",
-                  }}
-                  primary={res.label}
-                />
-              </ListItemButton>
-            </ListItem>
-            // <Button
-            //   variant="contained"
-            //   color="primary"
-            //   key={idx}
-            //   onClick={() => {
-            //     sendMessageCarousel(res.value, "bot", res.label);
-            //     // context.sendMessageButton(val.value, "bot", val.label);
-            //     // context.sendMessageCarousel(res.value, "bot", res.label);
-            //   }}
-            // >
-            //   {res.label}
-            // </Button>
-          ))}
-        </List>
+      <Box display="flex" flexDirection="column" sx={{ marginTop: "10px" }}>
+        {data[activeStep].menu?.map((res: any, idx: number) => (
+          <Button
+            variant="outlined"
+            color="primary"
+            sx={{ marginBottom: "5px" }}
+            key={idx}
+            onClick={() => {
+              sendMessageCarousel(res.value, "bot", res.label);
+            }}
+          >
+            {res.label}
+          </Button>
+        ))}
       </Box>
       <MobileStepper
         steps={maxSteps}

@@ -548,13 +548,16 @@ const useWidgetChat = create<Store>()(
                 "/client/reply/media",
                 postReplyData
               );
+              console.log(responseReplay);
               if (!responseReplay.data.error) {
                 let message: any;
-                // if (typeof responseReplay.data.message !== "undefined") {
-                //   message = general.INF_convertAttachment(
-                //     responseReplay.data.message
-                //   );
-                // }
+                console.log(responseReplay);
+                if (typeof responseReplay.data.message !== "undefined") {
+                  message = general.INF_convertAttachment(
+                    responseReplay.data.message
+                  );
+                }
+                console.log(message);
                 set(
                   (state) => ({
                     message: [
@@ -564,8 +567,8 @@ const useWidgetChat = create<Store>()(
                         from: "me",
                         type: message?.type,
                         time: moment().format("LLL"),
-                        mimeType: message?.mimeType,
-                        fileName: message?.fileName,
+                        mimeType: responseReplay.data.message?.mimeType,
+                        fileName: responseReplay.data.message?.fileName,
                       },
                     ],
                   }),

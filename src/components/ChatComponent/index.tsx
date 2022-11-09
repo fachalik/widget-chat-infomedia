@@ -103,27 +103,49 @@ const ChatComponent = () => {
     return (
       <div role="presentation" className="attachment-presentation">
         <Collapse in={open}>
-          {data.map((val: any, key: number) => (
-            <Box marginRight={1} marginBottom={1} key={key}>
-              <Tooltip title={val.name} onClick={val.onClick}>
-                <Fab size="small" className={`float_btn ${val.bg}`}>
-                  {val.icon}
-                </Fab>
-              </Tooltip>
-            </Box>
-          ))}
+          <Box marginBottom={3}>
+            {data.map((val: any, key: number) => (
+              <Box marginRight={1} marginBottom={1} key={key}>
+                <Tooltip title={val.name} onClick={val.onClick}>
+                  <Fab size="small" className={`float_btn ${val.bg}`}>
+                    {val.icon}
+                  </Fab>
+                </Tooltip>
+              </Box>
+            ))}
+          </Box>
         </Collapse>
         <Tooltip title="Attachment">
           <Box>
-            <Fab
+            {/* <Fab
               size="small"
               className="float_attach"
               onClick={() => {
                 onClickAttackment();
               }}
+            > */}
+            <div
+              onClick={() => onClickAttackment()}
+              className={css`
+                height: 100%;
+                text-decoration: none;
+                border: none;
+                background-color: white;
+                cursor: pointer;
+                color: red;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 90px;
+                width: 30px;
+                transition: 0.3s;
+                &:hover {
+                  color: grey;
+                }
+              `}
             >
               <AttachFileIcon />
-            </Fab>
+            </div>
           </Box>
         </Tooltip>
       </div>
@@ -197,11 +219,11 @@ const ChatComponent = () => {
               placeholder="Ketik disini..."
               value={value}
               onChange={(e) => setValue(e.target.value)}
-              maxRows={5}
+              maxRows={3}
               sx={{ width: "90%" }}
               onKeyDown={onEnterPress}
             />
-
+            {/* <Fab size="small"> */}
             <button
               type="submit"
               onClick={() => handleSendChat(value)}
@@ -209,14 +231,14 @@ const ChatComponent = () => {
                 height: 100%;
                 text-decoration: none;
                 border: none;
-                background-color: white;
+                background-color: transparent;
                 cursor: pointer;
                 color: red;
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 border-radius: 90px;
-                width: 30px;
+                // width: 30px;
                 transition: 0.3s;
                 &:hover {
                   color: grey;
@@ -227,6 +249,7 @@ const ChatComponent = () => {
                 <SendIcon fontSize="small" />
               </Tooltip>
             </button>
+            {/* </Fab> */}
           </form>
 
           {/* <Tooltip title="Attach file">

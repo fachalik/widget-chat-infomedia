@@ -137,7 +137,7 @@ const OnBoard = () => {
       <HeaderWithClose close onClick={() => setOpen()} />
       <Stack
         spacing={2}
-        sx={{ height: "85%" }}
+        sx={{ height: "85%", backgroundColor: "white" }}
         justifyContent={"center"}
         alignItems={"center"}
       >
@@ -174,6 +174,7 @@ const OnBoard = () => {
             border="1px solid #c4c4c4"
             borderRadius="8px"
             width={"90%"}
+            sx={{ backgroundColor: "white" }}
           >
             <Typography sx={{ margin: 0 }}>
               Silakan isi formulir di bawah ini untuk memulai percakapan dengan
