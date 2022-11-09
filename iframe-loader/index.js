@@ -74,8 +74,8 @@ function widgetApi() {
     widgetStyle.display = "none";
     widgetStyle.boxSizing = "border-box";
     
-    widgetStyle.width = "400px";
-    widgetStyle.height = "250px";
+    widgetStyle.width = "212px";
+    widgetStyle.height = "204px";
     widgetStyle.position = "fixed";
     widgetStyle.bottom = "5px";
     widgetStyle.right = "10px";
@@ -128,8 +128,8 @@ function widgetApi() {
       },
 
       hide: () => {
-        widgetStyle.width = "400px";
-        widgetStyle.height = "80px";
+        widgetStyle.width = "212px";
+        widgetStyle.height = "204px";
         widgetStyle.borderRadius = "15px";
         // widgetStyle.boxShadow = "";
         // widget.style.display = "none";
@@ -161,10 +161,11 @@ function widgetApi() {
         if (evt.data === "hide") {
           api.hide();
           api.onHide();
-          console.log('hit')
+          // console.log('hit')
         }
         if (evt.data === "show") {
           api.show();
+          // console.log('hot')
           // api.onHide();
         }
       });

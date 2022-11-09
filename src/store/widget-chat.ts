@@ -43,6 +43,7 @@ type Store = {
   setShowLoader: (state: any) => void;
   addCountNotRead: () => void;
   resetCountNotRead: () => void;
+  closeWidget: () => void;
   loader: () => void;
   reset: () => void;
 };
@@ -80,6 +81,17 @@ const useWidgetChat = create<Store>()(
 
         setPostLoginToken(token: any) {
           set(() => ({ postLoginToken: token }));
+        },
+
+        closeWidget() {
+          const { resetCountNotRead } = get();
+          useWidgetOpen.getState().setOpen();
+          resetCountNotRead();
+          window.parent.postMessage(
+            useWidgetOpen.getState().open ? "show" : "hide",
+            "*"
+          );
+          console.log(useWidgetOpen.getState().open);
         },
 
         async createSession(postData: any) {

@@ -1,6 +1,3 @@
-import Badge from "@mui/material/Badge";
-import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
 import React from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
@@ -22,7 +19,7 @@ const App = () => {
   const { isLoad, token, setIsLoad, setColor, setLogo } = useWidgetStore(
     (state) => state
   );
-  const { open, setOpen } = useWidgetOpen((state) => state);
+  const { open } = useWidgetOpen((state) => state);
 
   const {
     getHistoryChat,
@@ -34,18 +31,12 @@ const App = () => {
     addChat,
     clearHistoryChat,
     addCountNotRead,
-    resetCountNotRead,
+    closeWidget,
     loader,
     reset,
   } = useWidgetChat((state) => state);
 
   const [isToggle, setIsToggle] = React.useState<boolean>(true);
-
-  const handleChange = async () => {
-    await setOpen();
-    await resetCountNotRead();
-    await window.parent.postMessage(open ? "hide" : "show", "*");
-  };
 
   React.useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -124,7 +115,7 @@ const App = () => {
       {isToggle && !open && (
         <FloatingDialog open={isToggle} onClick={handleToggle} />
       )}
-      {!open && <FloatingButton open={open} onClick={handleChange} />}
+      {!open && <FloatingButton open={open} onClick={closeWidget} />}
     </BrowserRouter>
   );
 };

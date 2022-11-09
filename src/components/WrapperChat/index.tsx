@@ -1,7 +1,7 @@
 import { Container } from "@mui/material";
 import React, { FC } from "react";
 
-import useWidgetOpen from "../../store/widget-open";
+import useWidgetChat from "../../store/widget-chat";
 import ChatComponent from "../ChatComponent";
 import HeaderWithClose from "../Header/Header";
 
@@ -10,7 +10,8 @@ interface IProps {
 }
 
 const WrapperChat: FC<IProps> = ({ children }) => {
-  const { setOpen } = useWidgetOpen((state) => state);
+  const { closeWidget } = useWidgetChat((state) => state);
+
   return (
     <Container
       disableGutters={true}
@@ -25,7 +26,7 @@ const WrapperChat: FC<IProps> = ({ children }) => {
         backgroundColor: "#e0e0e0",
       }}
     >
-      <HeaderWithClose option close onClick={() => setOpen()} />
+      <HeaderWithClose option close onClick={() => closeWidget()} />
       {children}
       <ChatComponent />
     </Container>
