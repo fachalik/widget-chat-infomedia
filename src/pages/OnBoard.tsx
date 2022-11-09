@@ -132,7 +132,6 @@ const OnBoard = () => {
         height: "100%",
         overflowX: "hidden",
         overflowY: "hidden",
-        backgroundColor: "white",
       }}
     >
       <HeaderWithClose close onClick={() => setOpen()} />
