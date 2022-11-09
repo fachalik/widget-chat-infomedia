@@ -18,13 +18,13 @@
 }
 
 html {
-  background-color: transparent;
+  /* background-color: transparent; */
 }
 body {
   min-height: 100%;
   overflow: hidden;
-  background-color: transparent;
+  /* background-color: transparent; */
 }
 #live-body-chat {
-  background-color: transparent;
+  /* background-color: transparent; */
 }
