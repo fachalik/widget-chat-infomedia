@@ -98,41 +98,40 @@ const Carousel: FC<IProps> = ({ data }) => {
           {data[activeStep].subtitle}
         </Typography>
       </Paper>
-      <Box>
-        <List>
-          {data[activeStep].menu?.map((res: any, idx: number) => (
-            <ListItem disablePadding>
-              <ListItemButton
-                onClick={() => {
-                  sendMessageCarousel(res.value, "bot", res.label);
-                  // context.sendMessageButton(val.value, "bot", val.label);
-                  // context.sendMessageCarousel(res.value, "bot", res.label);
-                }}
-              >
-                <ListItemText
-                  primaryTypographyProps={{
-                    fontSize: 24,
-                    fontWeight: "bold",
-                    color: "black",
-                  }}
-                  primary={res.label}
-                />
-              </ListItemButton>
-            </ListItem>
-            // <Button
-            //   variant="contained"
-            //   color="primary"
-            //   key={idx}
-            //   onClick={() => {
-            //     sendMessageCarousel(res.value, "bot", res.label);
-            //     // context.sendMessageButton(val.value, "bot", val.label);
-            //     // context.sendMessageCarousel(res.value, "bot", res.label);
-            //   }}
-            // >
-            //   {res.label}
-            // </Button>
-          ))}
-        </List>
+      <Box display="flex" flexDirection="column" sx={{ marginTop: "10px" }}>
+        {data[activeStep].menu?.map((res: any, idx: number) => (
+          // <ListItem disablePadding>
+          //   <ListItemButton
+          //     onClick={() => {
+          //       sendMessageCarousel(res.value, "bot", res.label);
+          //       // context.sendMessageButton(val.value, "bot", val.label);
+          //       // context.sendMessageCarousel(res.value, "bot", res.label);
+          //     }}
+          //   >
+          //     <ListItemText
+          //       primaryTypographyProps={{
+          //         fontSize: 24,
+          //         fontWeight: "bold",
+          //         color: "black",
+          //       }}
+          //       primary={res.label}
+          //     />
+          //   </ListItemButton>
+          // </ListItem>
+          <Button
+            variant="outlined"
+            color="primary"
+            sx={{ marginBottom: "5px" }}
+            key={idx}
+            onClick={() => {
+              sendMessageCarousel(res.value, "bot", res.label);
+              // context.sendMessageButton(val.value, "bot", val.label);
+              // context.sendMessageCarousel(res.value, "bot", res.label);
+            }}
+          >
+            {res.label}
+          </Button>
+        ))}
       </Box>
       <MobileStepper
         steps={maxSteps}

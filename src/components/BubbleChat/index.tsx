@@ -103,8 +103,7 @@ const BubbleChat: FC<IProps> = ({ type, from, message, time, fileName }) => {
             >
               <div dangerouslySetInnerHTML={{ __html: htmlString }} />
             </div>
-            <p>asd</p>
-            <List
+            {/* <List
               sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
               aria-label="contacts"
             >
@@ -123,13 +122,14 @@ const BubbleChat: FC<IProps> = ({ type, from, message, time, fileName }) => {
                   <ListItemText primary="Spam" />
                 </ListItemButton>
               </ListItem>
-            </List>
+            </List> */}
             <Box display="flex" flexDirection="column">
               {message?.button?.map((val: any, index: number) => (
                 <Button
-                  variant="contained"
+                  variant="outlined"
                   key={index}
                   color="primary"
+                  sx={{ marginBottom: "5px", width: "100%" }}
                   onClick={() => {
                     console.log(val.value);
                     if (val.value === "selesai") return endSessionBot();
