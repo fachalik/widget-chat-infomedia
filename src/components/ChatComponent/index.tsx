@@ -6,13 +6,8 @@ import DescriptionIcon from "@mui/icons-material/Description";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import SendIcon from "@mui/icons-material/Send";
-import { Box, Collapse, Fab, Input, Stack, Tooltip, Zoom } from "@mui/material";
-import EmojiPicker, {
-  Emoji,
-  EmojiClickData,
-  EmojiStyle,
-  Theme,
-} from "emoji-picker-react";
+import { Box, Collapse, Fab, Input, Stack, Tooltip } from "@mui/material";
+import EmojiPicker, { EmojiClickData, Theme } from "emoji-picker-react";
 import React, { FC } from "react";
 
 import useWidgetChat from "../../store/widget-chat";
@@ -33,7 +28,7 @@ const ChatComponent = () => {
     await setValue("");
   };
 
-  const handleOnEmojiClick = (emojiData: EmojiClickData, event: MouseEvent) => {
+  const handleOnEmojiClick = (emojiData: EmojiClickData) => {
     setValue(value + emojiData.emoji);
   };
 
@@ -78,7 +73,6 @@ const ChatComponent = () => {
     onClickLocation,
     open,
   }) => {
-    // const [open, setOpen] = React.useState(false);
     const data: any = [
       {
         name: "Location",
@@ -117,13 +111,6 @@ const ChatComponent = () => {
         </Collapse>
         <Tooltip title="Attachment">
           <Box>
-            {/* <Fab
-              size="small"
-              className="float_attach"
-              onClick={() => {
-                onClickAttackment();
-              }}
-            > */}
             <div
               onClick={() => onClickAttackment()}
               className={css`
@@ -223,7 +210,6 @@ const ChatComponent = () => {
               sx={{ width: "90%" }}
               onKeyDown={onEnterPress}
             />
-            {/* <Fab size="small"> */}
             <button
               type="submit"
               onClick={() => handleSendChat(value)}
@@ -249,29 +235,7 @@ const ChatComponent = () => {
                 <SendIcon fontSize="small" />
               </Tooltip>
             </button>
-            {/* </Fab> */}
           </form>
-
-          {/* <Tooltip title="Attach file">
-          <div
-            className={css`
-              cursor: pointer;
-              color: red;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              border-radius: 90px;
-              width: 30px;
-              height: 30px;
-              transition: 0.3s;
-              &:hover {
-                color: grey;
-              }
-            `}
-          >
-            <AttachFileIcon fontSize="small" />
-          </div>
-        </Tooltip> */}
         </Stack>
       </Box>
     </>
