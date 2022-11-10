@@ -1,4 +1,4 @@
-import { Box, Chip, Divider, Typography } from "@mui/material";
+import { Box, Chip, Divider } from "@mui/material";
 import React from "react";
 
 import BubbleChat from "../components/BubbleChat";
