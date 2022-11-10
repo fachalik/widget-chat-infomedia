@@ -14,13 +14,17 @@ type Store = {
   loading: boolean;
   message: any[];
   chatOn: boolean;
+  openReview: boolean;
   status: string | null;
   error: string | null;
   postLoginToken: string | null;
   showLoader: boolean;
   firstTimeOpen: boolean;
   countNotRead: number;
+  isReview: boolean;
 
+  setIsReview: () => void;
+  setOpenReview: () => void;
   intialGreatings: () => void;
   setPostLoginToken: (token: any) => void;
   createSession: (postData: any) => void;
@@ -53,6 +57,8 @@ const initialState = {
   showLoader: false,
   firstTimeOpen: false,
   chatOn: false,
+  openReview: false,
+  isReview: false,
   INF_token: null,
   error: null,
   postLoginToken: null,
@@ -66,6 +72,19 @@ const useWidgetChat = create<Store>()(
     persist(
       (set, get) => ({
         ...initialState,
+
+        setIsReview() {
+          set(() => ({ isReview: true }), false, "widget-is-review");
+        },
+
+        setOpenReview() {
+          const { openReview } = get();
+          set(
+            (state: any) => ({ openReview: !state.openReview }),
+            false,
+            `widget-${!openReview ? "open" : "close"}-review`
+          );
+        },
 
         addCountNotRead() {
           set((state: any) => ({ countNotRead: state.countNotRead + 1 }));

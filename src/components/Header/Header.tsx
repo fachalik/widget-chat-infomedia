@@ -2,6 +2,7 @@ import { css } from "@emotion/css";
 import CloseIcon from "@mui/icons-material/Close";
 import MenuIcon from "@mui/icons-material/Menu";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
+import SpeakerNotesOffIcon from "@mui/icons-material/SpeakerNotesOff";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import {
   Box,
@@ -38,20 +39,23 @@ const Header: FC<IProps> = ({
     reset: resetWidgetStore,
   } = useWidgetStore((state) => state);
 
-  const { reset: resetWidgetChatStore } = useWidgetChat((state) => state);
+  const {
+    reset: resetWidgetChatStore,
+    endSession,
+    openReview,
+    setOpenReview,
+  } = useWidgetChat((state) => state);
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
-  const [openModal, setOpenModal] = React.useState<boolean>(false);
-
   const handleOpenModal = async () => {
     await setAnchorEl(null);
-    await setOpenModal(true);
+    await setOpenReview();
   };
   const handleCloseModal = async () => {
     await setAnchorEl(null);
-    await setOpenModal(false);
+    await setOpenReview();
   };
 
   const handleClickOptions = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -67,6 +71,49 @@ const Header: FC<IProps> = ({
     await resetWidgetChatStore();
     await resetWidgetStore();
   };
+
+  const handleEndSession = async () => {
+    await setAnchorEl(null);
+    await endSession();
+    await setOpenReview();
+  };
+
+  const dataMenuItem: any = [
+    {
+      name: "Akhiri percakapan",
+      eventMenu: handleEndSession,
+      icon: <SpeakerNotesOffIcon fontSize="small" />,
+    },
+    {
+      name: "Hapus riwayat percakapan",
+      eventMenu: handleResetWidgetChat,
+      icon: <RestartAltIcon fontSize="small" />,
+    },
+    // {
+    //   name: "Review chatbot",
+    //   eventMenu: handleOpenModal,
+    //   icon: <StarBorderIcon fontSize="small" />,
+    // },
+  ];
+
+  interface IMenuItem {
+    data: any;
+  }
+
+  const CMenuItem: FC<IMenuItem> = ({ data }) => (
+    <MenuItem onClick={data?.eventMenu}>
+      <ListItemIcon>{data?.icon}</ListItemIcon>
+      <ListItemText
+        sx={{
+          display: "flex",
+          justifyContent: "start",
+          alignItems: "center",
+        }}
+      >
+        <span style={{ fontSize: "0.8rem" }}>{data?.name}</span>
+      </ListItemText>
+    </MenuItem>
+  );
 
   return (
     <Box
@@ -178,36 +225,9 @@ const Header: FC<IProps> = ({
               "aria-labelledby": "basic-button",
             }}
           >
-            <MenuItem onClick={handleResetWidgetChat}>
-              <ListItemIcon>
-                <RestartAltIcon fontSize="small" />
-              </ListItemIcon>
-              <ListItemText
-                sx={{
-                  display: "flex",
-                  justifyContent: "start",
-                  alignItems: "center",
-                }}
-              >
-                <span style={{ fontSize: "0.8rem" }}>
-                  Hapus Riwayat Percakapan
-                </span>
-              </ListItemText>
-            </MenuItem>
-            <MenuItem onClick={handleOpenModal}>
-              <ListItemIcon>
-                <StarBorderIcon fontSize="small" />
-              </ListItemIcon>
-              <ListItemText
-                sx={{
-                  display: "flex",
-                  justifyContent: "start",
-                  alignItems: "center",
-                }}
-              >
-                <span style={{ fontSize: "0.8rem" }}>Review chatbot</span>
-              </ListItemText>
-            </MenuItem>
+            {dataMenuItem.map((item: any, idx: number) => (
+              <CMenuItem data={item} key={idx} />
+            ))}
           </Menu>
         </Box>
       )}
@@ -215,7 +235,7 @@ const Header: FC<IProps> = ({
       <DialogReview
         title={"Seberapa puaskah kamu dengan layanan chat bot ini?"}
         handleCloseModal={handleCloseModal}
-        openModal={openModal}
+        openModal={openReview}
       />
     </Box>
   );

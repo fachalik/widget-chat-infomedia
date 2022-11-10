@@ -1,13 +1,14 @@
-import { Box } from "@mui/material";
+import { Box, Chip, Divider, Typography } from "@mui/material";
 import React from "react";
 
 import BubbleChat from "../components/BubbleChat";
 import LoaderChat from "../components/LoaderChat";
+import Ratings from "../components/Rating";
 import WrapperChat from "../components/WrapperChat";
 import useWidgetChat from "../store/widget-chat";
 
 const Home = () => {
-  const { message, scrollToBottom, showLoader } = useWidgetChat(
+  const { message, scrollToBottom, showLoader, chatOn } = useWidgetChat(
     (state) => state
   );
 
@@ -16,7 +17,7 @@ const Home = () => {
       <Box
         id={"testing"}
         sx={{
-          height: "82%",
+          height: !chatOn ? "100%" : "82%",
           backgroundColor: "#e0e0e0",
           paddingX: "10px",
           paddingY: "15px",
@@ -37,6 +38,14 @@ const Home = () => {
             {...val}
           />
         ))}
+        {!chatOn && (
+          <>
+            <Divider>
+              <Chip label={"Chat berakhir"} />
+            </Divider>
+            <Ratings />
+          </>
+        )}
         {showLoader && <LoaderChat />}
         <div id="wgChat-endmessage" />
       </Box>

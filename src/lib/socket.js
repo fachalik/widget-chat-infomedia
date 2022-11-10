@@ -33,20 +33,22 @@ const initializeSocket = (
 
     socket.on("unauthorized", (reason) => {
       // console.log("Unauthorized:", reason);
-      if (reason.message == "USER_NOT_FOUND") {
-        // dispatch({ type: CLEAR_SESSION });
-        clearSession();
-        reset();
-      }
+      if (token !== null) {
+        if (reason.message == "USER_NOT_FOUND") {
+          // dispatch({ type: CLEAR_SESSION });
+          clearSession();
+          reset();
+        }
 
-      if (reason.message == "ALREADY_LOGGED_IN") {
-        statusChat("Already have another active chat");
-        // dispatch({
-        //   type: STATUS_CHAT,
-        //   payload: {
-        //     status:
-        //   },
-        // });
+        if (reason.message == "ALREADY_LOGGED_IN") {
+          statusChat("Already have another active chat");
+          // dispatch({
+          //   type: STATUS_CHAT,
+          //   payload: {
+          //     status:
+          //   },
+          // });
+        }
       }
 
       error = reason.message;
