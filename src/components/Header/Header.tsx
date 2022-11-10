@@ -232,11 +232,11 @@ const Header: FC<IProps> = ({
         </Box>
       )}
       {/* Dialog Component for review bot */}
-      <DialogReview
+      {/* <DialogReview
         title={"Seberapa puaskah kamu dengan layanan chat bot ini?"}
         handleCloseModal={handleCloseModal}
         openModal={openReview}
-      />
+      /> */}
     </Box>
   );
 };

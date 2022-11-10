@@ -16,9 +16,8 @@ import { Form, Formik } from "formik";
 import React, { FC } from "react";
 import * as yup from "yup";
 
-import useWidgetChat from "../../store/widget-chat";
-
 import { timeout } from "../../lib/utilitys";
+import useWidgetChat from "../../store/widget-chat";
 
 interface IForm {
   rating: number | null;
