@@ -8,7 +8,6 @@ import socket from "./lib/socket";
 import { timeout } from "./lib/utilitys";
 import Home from "./pages/Home";
 import Loading from "./pages/Loading";
-import Login from "./pages/Login";
 import OnBoard from "./pages/OnBoard";
 import { Logout } from "./routes/Logout";
 import useWidgetChat from "./store/widget-chat";
@@ -103,7 +102,6 @@ const App = () => {
               ) : (
                 <>
                   <Route path="/" element={<Home />} />
-                  <Route path="login" element={<Login />} />
                   <Route path="*" element={<Navigate to="/" />} />
                 </>
               )}

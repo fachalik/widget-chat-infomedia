@@ -21,7 +21,7 @@ const Loading = () => {
         }}
       >
         <Typography>Image here</Typography>
-        <CircularProgress />
+        <CircularProgress size={"24px"} sx={{ marginTop: "10px" }} />
       </Box>
     </Container>
   );

@@ -10,7 +10,7 @@ interface IProps {
 }
 
 const WrapperChat: FC<IProps> = ({ children }) => {
-  const { closeWidget } = useWidgetChat((state) => state);
+  const { closeWidget, chatOn } = useWidgetChat((state) => state);
 
   return (
     <Container
@@ -28,7 +28,7 @@ const WrapperChat: FC<IProps> = ({ children }) => {
     >
       <HeaderWithClose option close onClick={() => closeWidget()} />
       {children}
-      <ChatComponent />
+      {chatOn && <ChatComponent />}
     </Container>
   );
 };

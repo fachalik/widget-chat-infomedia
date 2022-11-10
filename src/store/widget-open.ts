@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import create from "zustand";
-import { devtools, persist } from "zustand/middleware";
+import { devtools } from "zustand/middleware";
 
 type Store = {
   open: boolean;
